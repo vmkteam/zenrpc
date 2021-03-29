@@ -1,6 +1,6 @@
 # zenrpc: JSON-RPC 2.0 Server Implementation with SMD support
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/vmkteam/zenrpc)](https://goreportcard.com/report/github.com/vmkteam/zenrpc) [![Build Status](https://github.com/vmkteam/zenrpc/actions/workflows/go.yml/badge.svg?branch=master)](https://travis-ci.org/vmkteam/zenrpc) [![codecov](https://codecov.io/gh/vmkteam/zenrpc/branch/master/graph/badge.svg)](https://codecov.io/gh/vmkteam/zenrpc) [![Go Reference](https://pkg.go.dev/badge/github.com/vmkteam/zenrpc.svg)](https://pkg.go.dev/github.com/vmkteam/zenrpc)
+[![Go Report Card](https://goreportcard.com/badge/github.com/vmkteam/zenrpc)](https://goreportcard.com/report/github.com/vmkteam/zenrpc) [![Build Status](https://github.com/vmkteam/zenrpc/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/vmkteam/zenrpc/actions) [![codecov](https://codecov.io/gh/vmkteam/zenrpc/branch/master/graph/badge.svg)](https://codecov.io/gh/vmkteam/zenrpc) [![Go Reference](https://pkg.go.dev/badge/github.com/vmkteam/zenrpc.svg)](https://pkg.go.dev/github.com/vmkteam/zenrpc)
 
 `zenrpc` is a JSON-RPC 2.0 server library with [Service Mapping Description](https://dojotoolkit.org/reference-guide/1.8/dojox/rpc/smd.html) support. 
 It's built on top of `go generate` instead of reflection. 
@@ -26,18 +26,19 @@ It's built on top of `go generate` instead of reflection.
 - Error is error or *zenrpc.Error
 
 ## Example
+
 ```go
 package main
 
 import (
-	"flag"
 	"context"
 	"errors"
-	"math"
+	"flag"
 	"log"
+	"math"
 	"net/http"
-	"os"	
-	
+	"os"
+
 	"github.com/vmkteam/zenrpc/v2"
 	"github.com/vmkteam/zenrpc/v2/testdata"
 )
