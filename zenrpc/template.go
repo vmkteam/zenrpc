@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/semrush/zenrpc/v2/parser"
 	"text/template"
+
+	"github.com/vmkteam/zenrpc/v2/parser"
 )
 
 var (
@@ -58,8 +59,8 @@ import (
 	"encoding/json"
 	"context"
 
-	"github.com/semrush/zenrpc/v2"
-	"github.com/semrush/zenrpc/v2/smd"
+	"github.com/vmkteam/zenrpc/v2"
+	"github.com/vmkteam/zenrpc/v2/smd"
 
 	{{ range .ImportsIncludedToGeneratedCode}}
 		{{if .Name}}{{.Name.Name}} {{end}}{{.Path.Value}}

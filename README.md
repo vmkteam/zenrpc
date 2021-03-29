@@ -1,6 +1,6 @@
 # zenrpc: JSON-RPC 2.0 Server Implementation with SMD support
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/semrush/zenrpc)](https://goreportcard.com/report/github.com/semrush/zenrpc) [![Build Status](https://travis-ci.org/semrush/zenrpc.svg?branch=master)](https://travis-ci.org/semrush/zenrpc) [![codecov](https://codecov.io/gh/semrush/zenrpc/branch/master/graph/badge.svg)](https://codecov.io/gh/semrush/zenrpc) [![GoDoc](https://godoc.org/github.com/semrush/zenrpc?status.svg)](https://godoc.org/github.com/semrush/zenrpc)
+[![Go Report Card](https://goreportcard.com/badge/github.com/vmkteam/zenrpc)](https://goreportcard.com/report/github.com/vmkteam/zenrpc) [![Build Status](https://travis-ci.org/vmkteam/zenrpc.svg?branch=master)](https://travis-ci.org/vmkteam/zenrpc) [![codecov](https://codecov.io/gh/vmkteam/zenrpc/branch/master/graph/badge.svg)](https://codecov.io/gh/vmkteam/zenrpc) [![GoDoc](https://godoc.org/github.com/vmkteam/zenrpc?status.svg)](https://godoc.org/github.com/vmkteam/zenrpc)
 
 `zenrpc` is a JSON-RPC 2.0 server library with [Service Mapping Description](https://dojotoolkit.org/reference-guide/1.8/dojox/rpc/smd.html) support. 
 It's built on top of `go generate` instead of reflection. 
@@ -9,8 +9,8 @@ It's built on top of `go generate` instead of reflection.
 
 ```Service is struct with RPC methods, service represents RPC namespace.```
 
-  1. Install zenrpc generator `go get github.com/semrush/zenrpc/v2/zenrpc`
-  1. Import `github.com/semrush/zenrpc/v2` into our code with rpc service.
+  1. Install zenrpc generator `go get github.com/vmkteam/zenrpc/v2/zenrpc`
+  1. Import `github.com/vmkteam/zenrpc/v2` into our code with rpc service.
   1. Add trailing comment `//zenrpc` to your service or embed `zenrpc.Service` into your service struct.
   1. Write your funcs almost as usual.
   1. Do not forget run `go generate` or `zenrpc` for magic
@@ -38,8 +38,8 @@ import (
 	"net/http"
 	"os"	
 	
-	"github.com/semrush/zenrpc/v2"
-	"github.com/semrush/zenrpc/v2/testdata"
+	"github.com/vmkteam/zenrpc/v2"
+	"github.com/vmkteam/zenrpc/v2/testdata"
 )
 
 type ArithService struct{ zenrpc.Service }
