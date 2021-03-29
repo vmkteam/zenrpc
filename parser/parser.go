@@ -102,6 +102,7 @@ type Struct struct {
 
 type Property struct {
 	Name        string
+	HasStar     bool
 	Description string
 	SMDType     SMDType
 }

@@ -107,14 +107,17 @@ func (ArithService) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"X": {
+									Optional:    false,
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
 								"Y": {
+									Optional:    false,
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
 								"ConnectedObject": {
+									Optional:    false,
 									Description: ``,
 									Ref:         "#/definitions/objects.AbstractObject",
 									Type:        smd.Object,
@@ -138,14 +141,17 @@ func (ArithService) SMD() smd.ServiceInfo {
 						Type:        smd.Object,
 						Properties: map[string]smd.Property{
 							"X": {
+								Optional:    false,
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
 							"Y": {
+								Optional:    false,
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
 							"ConnectedObject": {
+								Optional:    false,
 								Description: ``,
 								Ref:         "#/definitions/objects.AbstractObject",
 								Type:        smd.Object,
@@ -165,14 +171,17 @@ func (ArithService) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"X": {
+							Optional:    false,
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
 						"Y": {
+							Optional:    false,
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
 						"ConnectedObject": {
+							Optional:    false,
 							Description: ``,
 							Ref:         "#/definitions/objects.AbstractObject",
 							Type:        smd.Object,
@@ -258,10 +267,12 @@ func (ArithService) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"Quo": {
+							Optional:    false,
 							Description: `Quo docs`,
 							Type:        smd.Integer,
 						},
 						"rem": {
+							Optional:    false,
 							Description: `Rem docs`,
 							Type:        smd.Integer,
 						},
@@ -539,14 +550,17 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"id": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Integer,
 									},
 									"title": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
 									"nodes": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Array,
 										Items: map[string]string{
@@ -554,6 +568,7 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 										},
 									},
 									"group": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Array,
 										Items: map[string]string{
@@ -561,11 +576,13 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 										},
 									},
 									"child": {
+										Optional:    true,
 										Description: ``,
 										Ref:         "#/definitions/Group",
 										Type:        smd.Object,
 									},
 									"sub": {
+										Optional:    false,
 										Description: ``,
 										Ref:         "#/definitions/SubGroup",
 										Type:        smd.Object,
@@ -576,10 +593,12 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"id": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Integer,
 									},
 									"title": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
@@ -610,10 +629,12 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"id": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Integer,
 									},
 									"group": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Array,
 										Items: map[string]string{
@@ -626,14 +647,17 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"id": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Integer,
 									},
 									"title": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
 									"nodes": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Array,
 										Items: map[string]string{
@@ -641,6 +665,7 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 										},
 									},
 									"group": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Array,
 										Items: map[string]string{
@@ -648,11 +673,13 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 										},
 									},
 									"child": {
+										Optional:    true,
 										Description: ``,
 										Ref:         "#/definitions/Group",
 										Type:        smd.Object,
 									},
 									"sub": {
+										Optional:    false,
 										Description: ``,
 										Ref:         "#/definitions/SubGroup",
 										Type:        smd.Object,
@@ -663,10 +690,12 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"id": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Integer,
 									},
 									"title": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
@@ -690,10 +719,12 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"id": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.Integer,
 						},
 						"group": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.Array,
 							Items: map[string]string{
@@ -706,14 +737,17 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"id": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Integer,
 								},
 								"title": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"nodes": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Array,
 									Items: map[string]string{
@@ -721,6 +755,7 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 									},
 								},
 								"group": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Array,
 									Items: map[string]string{
@@ -728,11 +763,13 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 									},
 								},
 								"child": {
+									Optional:    true,
 									Description: ``,
 									Ref:         "#/definitions/Group",
 									Type:        smd.Object,
 								},
 								"sub": {
+									Optional:    false,
 									Description: ``,
 									Ref:         "#/definitions/SubGroup",
 									Type:        smd.Object,
@@ -743,10 +780,12 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"id": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Integer,
 								},
 								"title": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
@@ -827,18 +866,22 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 						Type:        smd.Object,
 						Properties: map[string]smd.Property{
 							"ByName": {
+								Optional:    true,
 								Description: `ByName is filter for searching person by first name or last name.`,
 								Type:        smd.String,
 							},
 							"ByType": {
+								Optional:    true,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"ByPhone": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"ByAddress": {
+								Optional:    true,
 								Description: ``,
 								Ref:         "#/definitions/Address",
 								Type:        smd.Object,
@@ -849,10 +892,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"Street": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
 									"City": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
@@ -885,26 +930,32 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"ID": {
+									Optional:    false,
 									Description: `ID is Unique Identifier for person`,
 									Type:        smd.Integer,
 								},
 								"FirstName": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"LastName": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"Phone": {
+									Optional:    false,
 									Description: `Phone is main phone`,
 									Type:        smd.String,
 								},
 								"WorkPhone": {
+									Optional:    true,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"Mobile": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Array,
 									Items: map[string]string{
@@ -912,10 +963,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 									},
 								},
 								"Deleted": {
+									Optional:    false,
 									Description: `Deleted is flag for`,
 									Type:        smd.Boolean,
 								},
 								"Addresses": {
+									Optional:    false,
 									Description: `Addresses Could be nil or len() == 0.`,
 									Type:        smd.Array,
 									Items: map[string]string{
@@ -923,6 +976,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 									},
 								},
 								"address": {
+									Optional:    true,
 									Description: ``,
 									Ref:         "#/definitions/Address",
 									Type:        smd.Object,
@@ -933,10 +987,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"Street": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"City": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
@@ -955,18 +1011,22 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 						Type:        smd.Object,
 						Properties: map[string]smd.Property{
 							"ByName": {
+								Optional:    true,
 								Description: `ByName is filter for searching person by first name or last name.`,
 								Type:        smd.String,
 							},
 							"ByType": {
+								Optional:    true,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"ByPhone": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"ByAddress": {
+								Optional:    true,
 								Description: ``,
 								Ref:         "#/definitions/Address",
 								Type:        smd.Object,
@@ -977,10 +1037,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"Street": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
 									"City": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
@@ -995,18 +1057,22 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"ByName": {
+							Optional:    true,
 							Description: `ByName is filter for searching person by first name or last name.`,
 							Type:        smd.String,
 						},
 						"ByType": {
+							Optional:    true,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"ByPhone": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"ByAddress": {
+							Optional:    true,
 							Description: ``,
 							Ref:         "#/definitions/Address",
 							Type:        smd.Object,
@@ -1017,10 +1083,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"Street": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"City": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
@@ -1045,26 +1113,32 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"ID": {
+							Optional:    false,
 							Description: `ID is Unique Identifier for person`,
 							Type:        smd.Integer,
 						},
 						"FirstName": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"LastName": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"Phone": {
+							Optional:    false,
 							Description: `Phone is main phone`,
 							Type:        smd.String,
 						},
 						"WorkPhone": {
+							Optional:    true,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"Mobile": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.Array,
 							Items: map[string]string{
@@ -1072,10 +1146,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							},
 						},
 						"Deleted": {
+							Optional:    false,
 							Description: `Deleted is flag for`,
 							Type:        smd.Boolean,
 						},
 						"Addresses": {
+							Optional:    false,
 							Description: `Addresses Could be nil or len() == 0.`,
 							Type:        smd.Array,
 							Items: map[string]string{
@@ -1083,6 +1159,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							},
 						},
 						"address": {
+							Optional:    true,
 							Description: ``,
 							Ref:         "#/definitions/Address",
 							Type:        smd.Object,
@@ -1093,10 +1170,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"Street": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"City": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
@@ -1150,26 +1229,32 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 						Type:        smd.Object,
 						Properties: map[string]smd.Property{
 							"ID": {
+								Optional:    false,
 								Description: `ID is Unique Identifier for person`,
 								Type:        smd.Integer,
 							},
 							"FirstName": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"LastName": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"Phone": {
+								Optional:    false,
 								Description: `Phone is main phone`,
 								Type:        smd.String,
 							},
 							"WorkPhone": {
+								Optional:    true,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"Mobile": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.Array,
 								Items: map[string]string{
@@ -1177,10 +1262,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 								},
 							},
 							"Deleted": {
+								Optional:    false,
 								Description: `Deleted is flag for`,
 								Type:        smd.Boolean,
 							},
 							"Addresses": {
+								Optional:    false,
 								Description: `Addresses Could be nil or len() == 0.`,
 								Type:        smd.Array,
 								Items: map[string]string{
@@ -1188,6 +1275,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 								},
 							},
 							"address": {
+								Optional:    true,
 								Description: ``,
 								Ref:         "#/definitions/Address",
 								Type:        smd.Object,
@@ -1198,10 +1286,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"Street": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
 									"City": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},

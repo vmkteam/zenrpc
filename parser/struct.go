@@ -73,6 +73,7 @@ func (s *Struct) parse(pi *PackageInfo) error {
 		}
 
 		smdType, itemType := parseSMDType(field.Type)
+		hasStar := hasStar(parseType(field.Type))
 
 		var ref string
 		// parse field with struct type
@@ -129,6 +130,7 @@ func (s *Struct) parse(pi *PackageInfo) error {
 
 			p := Property{
 				Name:        name.Name,
+				HasStar:     hasStar,
 				Description: description,
 				SMDType: SMDType{
 					Type:      smdType,

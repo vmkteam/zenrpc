@@ -76,6 +76,7 @@ type JSONSchema struct {
 
 type Property struct {
 	Type        string                `json:"type,omitempty"`
+	Optional    bool                  `json:"optional,omitempty"`
 	Description string                `json:"description,omitempty"`
 	Items       map[string]string     `json:"items,omitempty"`
 	Definitions map[string]Definition `json:"definitions,omitempty"`

@@ -77,26 +77,32 @@ func (SubArithService) SMD() smd.ServiceInfo {
 						Type:        smd.Object,
 						Properties: map[string]smd.Property{
 							"Name": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"SomeField": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"Measure": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.Float,
 							},
 							"A": {
+								Optional:    false,
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
 							"B": {
+								Optional:    false,
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
 							"when": {
+								Optional:    true,
 								Description: `when it happened`,
 								Ref:         "#/definitions/time.Time",
 								Type:        smd.Object,
@@ -116,26 +122,32 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"Name": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"SomeField": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"Measure": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.Float,
 						},
 						"A": {
+							Optional:    false,
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
 						"B": {
+							Optional:    false,
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
 						"when": {
+							Optional:    true,
 							Description: `when it happened`,
 							Ref:         "#/definitions/time.Time",
 							Type:        smd.Object,
@@ -164,26 +176,32 @@ func (SubArithService) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"Name": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"SomeField": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"Measure": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Float,
 								},
 								"X": {
+									Optional:    false,
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
 								"Y": {
+									Optional:    false,
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
 								"ConnectedObject": {
+									Optional:    false,
 									Description: ``,
 									Ref:         "#/definitions/objects.AbstractObject",
 									Type:        smd.Object,
@@ -194,14 +212,17 @@ func (SubArithService) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"Name": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"SomeField": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"Measure": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Float,
 								},
@@ -225,26 +246,32 @@ func (SubArithService) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"Name": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"SomeField": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"Measure": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Float,
 								},
 								"A": {
+									Optional:    false,
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
 								"B": {
+									Optional:    false,
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
 								"when": {
+									Optional:    true,
 									Description: `when it happened`,
 									Ref:         "#/definitions/time.Time",
 									Type:        smd.Object,
@@ -268,26 +295,32 @@ func (SubArithService) SMD() smd.ServiceInfo {
 						Type:        smd.Object,
 						Properties: map[string]smd.Property{
 							"Name": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"SomeField": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.String,
 							},
 							"Measure": {
+								Optional:    false,
 								Description: ``,
 								Type:        smd.Float,
 							},
 							"X": {
+								Optional:    false,
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
 							"Y": {
+								Optional:    false,
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
 							"ConnectedObject": {
+								Optional:    false,
 								Description: ``,
 								Ref:         "#/definitions/objects.AbstractObject",
 								Type:        smd.Object,
@@ -298,14 +331,17 @@ func (SubArithService) SMD() smd.ServiceInfo {
 								Type: "object",
 								Properties: map[string]smd.Property{
 									"Name": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
 									"SomeField": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.String,
 									},
 									"Measure": {
+										Optional:    false,
 										Description: ``,
 										Type:        smd.Float,
 									},
@@ -320,26 +356,32 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"Name": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"SomeField": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.String,
 						},
 						"Measure": {
+							Optional:    false,
 							Description: ``,
 							Type:        smd.Float,
 						},
 						"X": {
+							Optional:    false,
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
 						"Y": {
+							Optional:    false,
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
 						"ConnectedObject": {
+							Optional:    false,
 							Description: ``,
 							Ref:         "#/definitions/objects.AbstractObject",
 							Type:        smd.Object,
@@ -350,14 +392,17 @@ func (SubArithService) SMD() smd.ServiceInfo {
 							Type: "object",
 							Properties: map[string]smd.Property{
 								"Name": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"SomeField": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.String,
 								},
 								"Measure": {
+									Optional:    false,
 									Description: ``,
 									Type:        smd.Float,
 								},
@@ -438,10 +483,12 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					Type:        smd.Object,
 					Properties: map[string]smd.Property{
 						"Quo": {
+							Optional:    false,
 							Description: `Quo docs`,
 							Type:        smd.Integer,
 						},
 						"rem": {
+							Optional:    false,
 							Description: `Rem docs`,
 							Type:        smd.Integer,
 						},
