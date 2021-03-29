@@ -27,7 +27,7 @@ var (
 	Properties: map[string]smd.Property{
 	{{range $i, $e := . -}}
 		"{{.Name}}": {
-            Optional: {{.HasStar}},
+			Optional: {{.HasStar}},
 			Description: ` + "`{{.Description}}`" + `,
 			{{- if and (eq .SMDType.Type "Object") .SMDType.Ref }}
 				Ref: "#/definitions/{{.SMDType.Ref}}",
