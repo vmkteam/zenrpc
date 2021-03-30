@@ -24,11 +24,16 @@ var (
 {{- end}}
 
 {{define "properties" -}}
-	Properties: map[string]smd.Property{
+	Properties: smd.PropertyList{
 	{{range $i, $e := . -}}
-		"{{.Name}}": {
+		{
+			Name: "{{.Name}}", 
+			{{- if .HasStar }}
 			Optional: {{.HasStar}},
+			{{- end}}
+			{{- if ne .Description ""}}
 			Description: ` + "`{{.Description}}`" + `,
+			{{- end}}
 			{{- if and (eq .SMDType.Type "Object") .SMDType.Ref }}
 				Ref: "#/definitions/{{.SMDType.Ref}}",
 			{{- end}}			
@@ -86,17 +91,25 @@ var RPC = struct {
 
 	func ({{.Name}}) SMD() smd.ServiceInfo {
 		return smd.ServiceInfo{
+			{{- if ne .Description ""}}
 			Description: ` + "`{{.Description}}`" + `,
+			{{- end}}
 			Methods: map[string]smd.Service{ 
 				{{- range .Methods }}
 					"{{.Name}}": {
+						{{- if ne .Description ""}}
 						Description: ` + "`{{.Description}}`" + `,
+						{{- end}}
 						Parameters: []smd.JSONSchema{ 
 						{{- range .Args }}
 							{
 								Name: "{{.Name}}",
+								{{- if or .HasStar .HasDefaultValue}}
 								Optional: {{or .HasStar .HasDefaultValue}},
+								{{- end}}
+								{{- if ne .Description ""}}
 								Description: ` + "`{{.Description}}`" + `,
+								{{- end}}
 								{{template "smdType" .SMDType}}
 								{{- if and (eq .SMDType.Type "Object") (ne .SMDType.Ref "")}}
 									{{ template "properties" (index $.Structs .SMDType.Ref).Properties}}
@@ -107,8 +120,12 @@ var RPC = struct {
 						}, 
 						{{- if .SMDReturn}}
 							Returns: smd.JSONSchema{ 
+								{{- if ne .SMDReturn.Description ""}}
 								Description: ` + "`{{.SMDReturn.Description}}`" + `,
+								{{- end}}
+								{{- if .SMDReturn.HasStar }}
 								Optional:    {{.SMDReturn.HasStar}},
+								{{- end}}
 								{{template "smdType" .SMDReturn.SMDType }}
 								{{- if and (eq .SMDReturn.SMDType.Type "Object") (ne .SMDReturn.SMDType.Ref "")}}
 									{{ template "properties" (index $.Structs .SMDReturn.SMDType.Ref).Properties}}

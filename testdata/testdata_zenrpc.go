@@ -55,142 +55,120 @@ var RPC = struct {
 
 func (ArithService) SMD() smd.ServiceInfo {
 	return smd.ServiceInfo{
-		Description: ``,
 		Methods: map[string]smd.Service{
 			"Sum": {
 				Description: `Sum sums two digits and returns error with error code as result and IP from context.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "a",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "a",
+						Type: smd.Integer,
 					},
 					{
-						Name:        "b",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "b",
+						Type: smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Boolean,
+					Type: smd.Boolean,
 				},
 			},
 			"Positive": {
-				Description: ``,
-				Parameters:  []smd.JSONSchema{},
+				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Boolean,
+					Type: smd.Boolean,
 				},
 			},
 			"DoSomething": {
-				Description: ``,
-				Parameters:  []smd.JSONSchema{},
+				Parameters: []smd.JSONSchema{},
 			},
 			"GetPoints": {
-				Description: ``,
-				Parameters:  []smd.JSONSchema{},
+				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Array,
+					Type: smd.Array,
 					Items: map[string]string{
 						"$ref": "#/definitions/model.Point",
 					},
 					Definitions: map[string]smd.Definition{
 						"model.Point": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"X": {
-									Optional:    false,
+							Properties: smd.PropertyList{
+								{
+									Name:        "X",
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
-								"Y": {
-									Optional:    false,
+								{
+									Name:        "Y",
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
-								"ConnectedObject": {
-									Optional:    false,
-									Description: ``,
-									Ref:         "#/definitions/objects.AbstractObject",
-									Type:        smd.Object,
+								{
+									Name: "ConnectedObject",
+									Ref:  "#/definitions/objects.AbstractObject",
+									Type: smd.Object,
 								},
 							},
 						},
 						"objects.AbstractObject": {
 							Type:       "object",
-							Properties: map[string]smd.Property{},
+							Properties: smd.PropertyList{},
 						},
 					},
 				},
 			},
 			"DoSomethingWithPoint": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "p",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Object,
-						Properties: map[string]smd.Property{
-							"X": {
-								Optional:    false,
+						Name: "p",
+						Type: smd.Object,
+						Properties: smd.PropertyList{
+							{
+								Name:        "X",
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
-							"Y": {
-								Optional:    false,
+							{
+								Name:        "Y",
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
-							"ConnectedObject": {
-								Optional:    false,
-								Description: ``,
-								Ref:         "#/definitions/objects.AbstractObject",
-								Type:        smd.Object,
+							{
+								Name: "ConnectedObject",
+								Ref:  "#/definitions/objects.AbstractObject",
+								Type: smd.Object,
 							},
 						},
 						Definitions: map[string]smd.Definition{
 							"objects.AbstractObject": {
 								Type:       "object",
-								Properties: map[string]smd.Property{},
+								Properties: smd.PropertyList{},
 							},
 						},
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"X": {
-							Optional:    false,
+					Type: smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name:        "X",
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
-						"Y": {
-							Optional:    false,
+						{
+							Name:        "Y",
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
-						"ConnectedObject": {
-							Optional:    false,
-							Description: ``,
-							Ref:         "#/definitions/objects.AbstractObject",
-							Type:        smd.Object,
+						{
+							Name: "ConnectedObject",
+							Ref:  "#/definitions/objects.AbstractObject",
+							Type: smd.Object,
 						},
 					},
 					Definitions: map[string]smd.Definition{
 						"objects.AbstractObject": {
 							Type:       "object",
-							Properties: map[string]smd.Property{},
+							Properties: smd.PropertyList{},
 						},
 					},
 				},
@@ -199,32 +177,24 @@ func (ArithService) SMD() smd.ServiceInfo {
 				Description: `Multiply multiples two digits and returns result.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "a",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "a",
+						Type: smd.Integer,
 					},
 					{
-						Name:        "b",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "b",
+						Type: smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Integer,
+					Type: smd.Integer,
 				},
 			},
 			"CheckError": {
 				Description: `CheckError throws error is isErr true.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "isErr",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Boolean,
+						Name: "isErr",
+						Type: smd.Boolean,
 					},
 				},
 				Errors: map[int]string{
@@ -235,10 +205,8 @@ func (ArithService) SMD() smd.ServiceInfo {
 				Description: `CheckError throws zenrpc error is isErr true.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "isErr",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Boolean,
+						Name: "isErr",
+						Type: smd.Boolean,
 					},
 				},
 				Errors: map[int]string{
@@ -250,29 +218,26 @@ func (ArithService) SMD() smd.ServiceInfo {
 				Parameters: []smd.JSONSchema{
 					{
 						Name:        "a",
-						Optional:    false,
 						Description: `the a`,
 						Type:        smd.Integer,
 					},
 					{
 						Name:        "b",
-						Optional:    false,
 						Description: `the b`,
 						Type:        smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    true,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"Quo": {
-							Optional:    false,
+					Optional: true,
+					Type:     smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name:        "Quo",
 							Description: `Quo docs`,
 							Type:        smd.Integer,
 						},
-						"rem": {
-							Optional:    false,
+						{
+							Name:        "rem",
 							Description: `Rem docs`,
 							Type:        smd.Integer,
 						},
@@ -287,10 +252,8 @@ func (ArithService) SMD() smd.ServiceInfo {
 				Description: `Pow returns x**y, the base-x exponential of y. If Exp is not set then default value is 2.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "base",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Float,
+						Name: "base",
+						Type: smd.Float,
 					},
 					{
 						Name:        "exp",
@@ -300,37 +263,30 @@ func (ArithService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Float,
+					Type: smd.Float,
 				},
 			},
 			"Pi": {
 				Description: `PI returns math.Pi.`,
 				Parameters:  []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Float,
+					Type: smd.Float,
 				},
 			},
 			"SumArray": {
 				Description: `SumArray returns sum all items from array`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "array",
-						Optional:    true,
-						Description: ``,
-						Type:        smd.Array,
+						Name:     "array",
+						Optional: true,
+						Type:     smd.Array,
 						Items: map[string]string{
 							"type": smd.Float,
 						},
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Float,
+					Type: smd.Float,
 				},
 			},
 		},
@@ -532,75 +488,64 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 
 func (CatalogueService) SMD() smd.ServiceInfo {
 	return smd.ServiceInfo{
-		Description: ``,
 		Methods: map[string]smd.Service{
 			"First": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "groups",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Array,
+						Name: "groups",
+						Type: smd.Array,
 						Items: map[string]string{
 							"$ref": "#/definitions/Group",
 						},
 						Definitions: map[string]smd.Definition{
 							"Group": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"id": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Integer,
+								Properties: smd.PropertyList{
+									{
+										Name: "id",
+										Type: smd.Integer,
 									},
-									"title": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "title",
+										Type: smd.String,
 									},
-									"nodes": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Array,
+									{
+										Name: "nodes",
+										Type: smd.Array,
 										Items: map[string]string{
 											"$ref": "#/definitions/Group",
 										},
 									},
-									"group": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Array,
+									{
+										Name: "group",
+										Type: smd.Array,
 										Items: map[string]string{
 											"$ref": "#/definitions/Group",
 										},
 									},
-									"child": {
-										Optional:    true,
-										Description: ``,
-										Ref:         "#/definitions/Group",
-										Type:        smd.Object,
+									{
+										Name:     "child",
+										Optional: true,
+										Ref:      "#/definitions/Group",
+										Type:     smd.Object,
 									},
-									"sub": {
-										Optional:    false,
-										Description: ``,
-										Ref:         "#/definitions/SubGroup",
-										Type:        smd.Object,
+									{
+										Name: "sub",
+										Ref:  "#/definitions/SubGroup",
+										Type: smd.Object,
 									},
 								},
 							},
 							"SubGroup": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"id": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Integer,
+								Properties: smd.PropertyList{
+									{
+										Name: "id",
+										Type: smd.Integer,
 									},
-									"title": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "title",
+										Type: smd.String,
 									},
 								},
 							},
@@ -608,35 +553,28 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Boolean,
+					Type: smd.Boolean,
 				},
 			},
 			"Second": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "campaigns",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Array,
+						Name: "campaigns",
+						Type: smd.Array,
 						Items: map[string]string{
 							"$ref": "#/definitions/Campaign",
 						},
 						Definitions: map[string]smd.Definition{
 							"Campaign": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"id": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Integer,
+								Properties: smd.PropertyList{
+									{
+										Name: "id",
+										Type: smd.Integer,
 									},
-									"group": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Array,
+									{
+										Name: "group",
+										Type: smd.Array,
 										Items: map[string]string{
 											"$ref": "#/definitions/Group",
 										},
@@ -645,59 +583,52 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 							},
 							"Group": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"id": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Integer,
+								Properties: smd.PropertyList{
+									{
+										Name: "id",
+										Type: smd.Integer,
 									},
-									"title": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "title",
+										Type: smd.String,
 									},
-									"nodes": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Array,
+									{
+										Name: "nodes",
+										Type: smd.Array,
 										Items: map[string]string{
 											"$ref": "#/definitions/Group",
 										},
 									},
-									"group": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Array,
+									{
+										Name: "group",
+										Type: smd.Array,
 										Items: map[string]string{
 											"$ref": "#/definitions/Group",
 										},
 									},
-									"child": {
-										Optional:    true,
-										Description: ``,
-										Ref:         "#/definitions/Group",
-										Type:        smd.Object,
+									{
+										Name:     "child",
+										Optional: true,
+										Ref:      "#/definitions/Group",
+										Type:     smd.Object,
 									},
-									"sub": {
-										Optional:    false,
-										Description: ``,
-										Ref:         "#/definitions/SubGroup",
-										Type:        smd.Object,
+									{
+										Name: "sub",
+										Ref:  "#/definitions/SubGroup",
+										Type: smd.Object,
 									},
 								},
 							},
 							"SubGroup": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"id": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Integer,
+								Properties: smd.PropertyList{
+									{
+										Name: "id",
+										Type: smd.Integer,
 									},
-									"title": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "title",
+										Type: smd.String,
 									},
 								},
 							},
@@ -705,28 +636,21 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Boolean,
+					Type: smd.Boolean,
 				},
 			},
 			"Third": {
-				Description: ``,
-				Parameters:  []smd.JSONSchema{},
+				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"id": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.Integer,
+					Type: smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name: "id",
+							Type: smd.Integer,
 						},
-						"group": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.Array,
+						{
+							Name: "group",
+							Type: smd.Array,
 							Items: map[string]string{
 								"$ref": "#/definitions/Group",
 							},
@@ -735,59 +659,52 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 					Definitions: map[string]smd.Definition{
 						"Group": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"id": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Integer,
+							Properties: smd.PropertyList{
+								{
+									Name: "id",
+									Type: smd.Integer,
 								},
-								"title": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "title",
+									Type: smd.String,
 								},
-								"nodes": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Array,
+								{
+									Name: "nodes",
+									Type: smd.Array,
 									Items: map[string]string{
 										"$ref": "#/definitions/Group",
 									},
 								},
-								"group": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Array,
+								{
+									Name: "group",
+									Type: smd.Array,
 									Items: map[string]string{
 										"$ref": "#/definitions/Group",
 									},
 								},
-								"child": {
-									Optional:    true,
-									Description: ``,
-									Ref:         "#/definitions/Group",
-									Type:        smd.Object,
+								{
+									Name:     "child",
+									Optional: true,
+									Ref:      "#/definitions/Group",
+									Type:     smd.Object,
 								},
-								"sub": {
-									Optional:    false,
-									Description: ``,
-									Ref:         "#/definitions/SubGroup",
-									Type:        smd.Object,
+								{
+									Name: "sub",
+									Ref:  "#/definitions/SubGroup",
+									Type: smd.Object,
 								},
 							},
 						},
 						"SubGroup": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"id": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Integer,
+							Properties: smd.PropertyList{
+								{
+									Name: "id",
+									Type: smd.Integer,
 								},
-								"title": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "title",
+									Type: smd.String,
 								},
 							},
 						},
@@ -854,52 +771,47 @@ func (s CatalogueService) Invoke(ctx context.Context, method string, params json
 
 func (PhoneBook) SMD() smd.ServiceInfo {
 	return smd.ServiceInfo{
-		Description: ``,
 		Methods: map[string]smd.Service{
 			"Get": {
 				Description: `Get returns all people from DB.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "search",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Object,
-						Properties: map[string]smd.Property{
-							"ByName": {
+						Name: "search",
+						Type: smd.Object,
+						Properties: smd.PropertyList{
+							{
+								Name:        "ByName",
 								Optional:    true,
 								Description: `ByName is filter for searching person by first name or last name.`,
 								Type:        smd.String,
 							},
-							"ByType": {
-								Optional:    true,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name:     "ByType",
+								Optional: true,
+								Type:     smd.String,
 							},
-							"ByPhone": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name: "ByPhone",
+								Type: smd.String,
 							},
-							"ByAddress": {
-								Optional:    true,
-								Description: ``,
-								Ref:         "#/definitions/Address",
-								Type:        smd.Object,
+							{
+								Name:     "ByAddress",
+								Optional: true,
+								Ref:      "#/definitions/Address",
+								Type:     smd.Object,
 							},
 						},
 						Definitions: map[string]smd.Definition{
 							"Address": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"Street": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+								Properties: smd.PropertyList{
+									{
+										Name: "Street",
+										Type: smd.String,
 									},
-									"City": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "City",
+										Type: smd.String,
 									},
 								},
 							},
@@ -919,82 +831,75 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Array,
+					Type: smd.Array,
 					Items: map[string]string{
 						"$ref": "#/definitions/Person",
 					},
 					Definitions: map[string]smd.Definition{
 						"Person": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"ID": {
-									Optional:    false,
+							Properties: smd.PropertyList{
+								{
+									Name:        "ID",
 									Description: `ID is Unique Identifier for person`,
 									Type:        smd.Integer,
 								},
-								"FirstName": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "FirstName",
+									Type: smd.String,
 								},
-								"LastName": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "LastName",
+									Type: smd.String,
 								},
-								"Phone": {
-									Optional:    false,
+								{
+									Name:        "Phone",
 									Description: `Phone is main phone`,
 									Type:        smd.String,
 								},
-								"WorkPhone": {
-									Optional:    true,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name:     "WorkPhone",
+									Optional: true,
+									Type:     smd.String,
 								},
-								"Mobile": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Array,
+								{
+									Name: "Mobile",
+									Type: smd.Array,
 									Items: map[string]string{
 										"type": smd.String,
 									},
 								},
-								"Deleted": {
-									Optional:    false,
+								{
+									Name:        "Deleted",
 									Description: `Deleted is flag for`,
 									Type:        smd.Boolean,
 								},
-								"Addresses": {
-									Optional:    false,
+								{
+									Name:        "Addresses",
 									Description: `Addresses Could be nil or len() == 0.`,
 									Type:        smd.Array,
 									Items: map[string]string{
 										"$ref": "#/definitions/Address",
 									},
 								},
-								"address": {
-									Optional:    true,
-									Description: ``,
-									Ref:         "#/definitions/Address",
-									Type:        smd.Object,
+								{
+									Name:     "address",
+									Optional: true,
+									Ref:      "#/definitions/Address",
+									Type:     smd.Object,
 								},
 							},
 						},
 						"Address": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"Street": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+							Properties: smd.PropertyList{
+								{
+									Name: "Street",
+									Type: smd.String,
 								},
-								"City": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "City",
+									Type: smd.String,
 								},
 							},
 						},
@@ -1009,42 +914,40 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 						Optional:    true,
 						Description: `search object`,
 						Type:        smd.Object,
-						Properties: map[string]smd.Property{
-							"ByName": {
+						Properties: smd.PropertyList{
+							{
+								Name:        "ByName",
 								Optional:    true,
 								Description: `ByName is filter for searching person by first name or last name.`,
 								Type:        smd.String,
 							},
-							"ByType": {
-								Optional:    true,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name:     "ByType",
+								Optional: true,
+								Type:     smd.String,
 							},
-							"ByPhone": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name: "ByPhone",
+								Type: smd.String,
 							},
-							"ByAddress": {
-								Optional:    true,
-								Description: ``,
-								Ref:         "#/definitions/Address",
-								Type:        smd.Object,
+							{
+								Name:     "ByAddress",
+								Optional: true,
+								Ref:      "#/definitions/Address",
+								Type:     smd.Object,
 							},
 						},
 						Definitions: map[string]smd.Definition{
 							"Address": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"Street": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+								Properties: smd.PropertyList{
+									{
+										Name: "Street",
+										Type: smd.String,
 									},
-									"City": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "City",
+										Type: smd.String,
 									},
 								},
 							},
@@ -1052,45 +955,42 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    true,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"ByName": {
+					Optional: true,
+					Type:     smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name:        "ByName",
 							Optional:    true,
 							Description: `ByName is filter for searching person by first name or last name.`,
 							Type:        smd.String,
 						},
-						"ByType": {
-							Optional:    true,
-							Description: ``,
-							Type:        smd.String,
+						{
+							Name:     "ByType",
+							Optional: true,
+							Type:     smd.String,
 						},
-						"ByPhone": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.String,
+						{
+							Name: "ByPhone",
+							Type: smd.String,
 						},
-						"ByAddress": {
-							Optional:    true,
-							Description: ``,
-							Ref:         "#/definitions/Address",
-							Type:        smd.Object,
+						{
+							Name:     "ByAddress",
+							Optional: true,
+							Ref:      "#/definitions/Address",
+							Type:     smd.Object,
 						},
 					},
 					Definitions: map[string]smd.Definition{
 						"Address": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"Street": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+							Properties: smd.PropertyList{
+								{
+									Name: "Street",
+									Type: smd.String,
 								},
-								"City": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "City",
+									Type: smd.String,
 								},
 							},
 						},
@@ -1102,82 +1002,75 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Parameters: []smd.JSONSchema{
 					{
 						Name:        "id",
-						Optional:    false,
 						Description: `person id`,
 						Type:        smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    true,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"ID": {
-							Optional:    false,
+					Optional: true,
+					Type:     smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name:        "ID",
 							Description: `ID is Unique Identifier for person`,
 							Type:        smd.Integer,
 						},
-						"FirstName": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.String,
+						{
+							Name: "FirstName",
+							Type: smd.String,
 						},
-						"LastName": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.String,
+						{
+							Name: "LastName",
+							Type: smd.String,
 						},
-						"Phone": {
-							Optional:    false,
+						{
+							Name:        "Phone",
 							Description: `Phone is main phone`,
 							Type:        smd.String,
 						},
-						"WorkPhone": {
-							Optional:    true,
-							Description: ``,
-							Type:        smd.String,
+						{
+							Name:     "WorkPhone",
+							Optional: true,
+							Type:     smd.String,
 						},
-						"Mobile": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.Array,
+						{
+							Name: "Mobile",
+							Type: smd.Array,
 							Items: map[string]string{
 								"type": smd.String,
 							},
 						},
-						"Deleted": {
-							Optional:    false,
+						{
+							Name:        "Deleted",
 							Description: `Deleted is flag for`,
 							Type:        smd.Boolean,
 						},
-						"Addresses": {
-							Optional:    false,
+						{
+							Name:        "Addresses",
 							Description: `Addresses Could be nil or len() == 0.`,
 							Type:        smd.Array,
 							Items: map[string]string{
 								"$ref": "#/definitions/Address",
 							},
 						},
-						"address": {
-							Optional:    true,
-							Description: ``,
-							Ref:         "#/definitions/Address",
-							Type:        smd.Object,
+						{
+							Name:     "address",
+							Optional: true,
+							Ref:      "#/definitions/Address",
+							Type:     smd.Object,
 						},
 					},
 					Definitions: map[string]smd.Definition{
 						"Address": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"Street": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+							Properties: smd.PropertyList{
+								{
+									Name: "Street",
+									Type: smd.String,
 								},
-								"City": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "City",
+									Type: smd.String,
 								},
 							},
 						},
@@ -1192,15 +1085,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Parameters: []smd.JSONSchema{
 					{
 						Name:        "id",
-						Optional:    false,
 						Description: `person id`,
 						Type:        smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Boolean,
+					Type: smd.Boolean,
 				},
 			},
 			"Remove": {
@@ -1208,14 +1098,12 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Parameters: []smd.JSONSchema{
 					{
 						Name:        "id",
-						Optional:    false,
 						Description: `person id`,
 						Type:        smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
 					Description: `operation result`,
-					Optional:    false,
 					Type:        smd.Boolean,
 				},
 			},
@@ -1223,77 +1111,70 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Description: `Save saves person to DB.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "p",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Object,
-						Properties: map[string]smd.Property{
-							"ID": {
-								Optional:    false,
+						Name: "p",
+						Type: smd.Object,
+						Properties: smd.PropertyList{
+							{
+								Name:        "ID",
 								Description: `ID is Unique Identifier for person`,
 								Type:        smd.Integer,
 							},
-							"FirstName": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name: "FirstName",
+								Type: smd.String,
 							},
-							"LastName": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name: "LastName",
+								Type: smd.String,
 							},
-							"Phone": {
-								Optional:    false,
+							{
+								Name:        "Phone",
 								Description: `Phone is main phone`,
 								Type:        smd.String,
 							},
-							"WorkPhone": {
-								Optional:    true,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name:     "WorkPhone",
+								Optional: true,
+								Type:     smd.String,
 							},
-							"Mobile": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.Array,
+							{
+								Name: "Mobile",
+								Type: smd.Array,
 								Items: map[string]string{
 									"type": smd.String,
 								},
 							},
-							"Deleted": {
-								Optional:    false,
+							{
+								Name:        "Deleted",
 								Description: `Deleted is flag for`,
 								Type:        smd.Boolean,
 							},
-							"Addresses": {
-								Optional:    false,
+							{
+								Name:        "Addresses",
 								Description: `Addresses Could be nil or len() == 0.`,
 								Type:        smd.Array,
 								Items: map[string]string{
 									"$ref": "#/definitions/Address",
 								},
 							},
-							"address": {
-								Optional:    true,
-								Description: ``,
-								Ref:         "#/definitions/Address",
-								Type:        smd.Object,
+							{
+								Name:     "address",
+								Optional: true,
+								Ref:      "#/definitions/Address",
+								Type:     smd.Object,
 							},
 						},
 						Definitions: map[string]smd.Definition{
 							"Address": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"Street": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+								Properties: smd.PropertyList{
+									{
+										Name: "Street",
+										Type: smd.String,
 									},
-									"City": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "City",
+										Type: smd.String,
 									},
 								},
 							},
@@ -1307,9 +1188,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Integer,
+					Type: smd.Integer,
 				},
 				Errors: map[int]string{
 					400: "invalid request",
@@ -1470,70 +1349,52 @@ func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMes
 
 func (PrintService) SMD() smd.ServiceInfo {
 	return smd.ServiceInfo{
-		Description: ``,
 		Methods: map[string]smd.Service{
 			"PrintRequiredDefault": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "s",
-						Optional:    true,
-						Description: ``,
-						Type:        smd.String,
+						Name:     "s",
+						Optional: true,
+						Type:     smd.String,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.String,
+					Type: smd.String,
 				},
 			},
 			"PrintOptionalWithDefault": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "s",
-						Optional:    true,
-						Description: ``,
-						Type:        smd.String,
+						Name:     "s",
+						Optional: true,
+						Type:     smd.String,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.String,
+					Type: smd.String,
 				},
 			},
 			"PrintRequired": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "s",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.String,
+						Name: "s",
+						Type: smd.String,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.String,
+					Type: smd.String,
 				},
 			},
 			"PrintOptional": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "s",
-						Optional:    true,
-						Description: ``,
-						Type:        smd.String,
+						Name:     "s",
+						Optional: true,
+						Type:     smd.String,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.String,
+					Type: smd.String,
 				},
 			},
 		},

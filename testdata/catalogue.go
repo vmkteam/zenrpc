@@ -4,6 +4,8 @@ import (
 	"github.com/vmkteam/zenrpc/v2"
 )
 
+//go:generate zenrpc
+
 type Group struct {
 	Id       int      `json:"id"`
 	Title    string   `json:"title"`
@@ -37,5 +39,3 @@ func (s CatalogueService) Second(campaigns []Campaign) (bool, error) {
 func (s CatalogueService) Third() (Campaign, error) {
 	return Campaign{}, nil
 }
-
-//go:generate zenrpc

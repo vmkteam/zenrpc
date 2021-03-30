@@ -1,6 +1,9 @@
 package smd
 
-import "encoding/json"
+import (
+	"bytes"
+	"encoding/json"
+)
 
 const (
 	String  = "string"
@@ -69,12 +72,13 @@ type JSONSchema struct {
 	Optional    bool                  `json:"optional,omitempty"`
 	Default     *json.RawMessage      `json:"default,omitempty"`
 	Description string                `json:"description,omitempty"`
-	Properties  map[string]Property   `json:"properties,omitempty"`
+	Properties  PropertyList          `json:"properties,omitempty"`
 	Definitions map[string]Definition `json:"definitions,omitempty"`
 	Items       map[string]string     `json:"items,omitempty"`
 }
 
 type Property struct {
+	Name        string                `json:"-"`
 	Type        string                `json:"type,omitempty"`
 	Optional    bool                  `json:"optional,omitempty"`
 	Description string                `json:"description,omitempty"`
@@ -84,8 +88,8 @@ type Property struct {
 }
 
 type Definition struct {
-	Type       string              `json:"type,omitempty"`
-	Properties map[string]Property `json:"properties,omitempty"`
+	Type       string       `json:"type,omitempty"`
+	Properties PropertyList `json:"properties,omitempty"`
 }
 
 type ServiceInfo struct {
@@ -93,8 +97,38 @@ type ServiceInfo struct {
 	Methods     map[string]Service
 }
 
+type PropertyList []Property
+
 // RawMessageString returns string as *json.RawMessage.
 func RawMessageString(m string) *json.RawMessage {
 	r := json.RawMessage(m)
 	return &r
+}
+
+// MarshalJSON implements the json.Marshaler interface for preserving map key sorting in SMD scheme.
+func (pl PropertyList) MarshalJSON() ([]byte, error) {
+	var buf bytes.Buffer
+
+	buf.WriteString("{")
+	for i, kv := range pl {
+		if i != 0 {
+			buf.WriteString(",")
+		}
+		// marshal key
+		key, err := json.Marshal(kv.Name)
+		if err != nil {
+			return nil, err
+		}
+		buf.Write(key)
+		buf.WriteString(":")
+		// marshal value
+		val, err := json.Marshal(kv)
+		if err != nil {
+			return nil, err
+		}
+		buf.Write(val)
+	}
+
+	buf.WriteString("}")
+	return buf.Bytes(), nil
 }
