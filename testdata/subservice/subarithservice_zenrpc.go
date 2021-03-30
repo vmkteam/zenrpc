@@ -34,74 +34,59 @@ var RPC = struct {
 
 func (SubArithService) SMD() smd.ServiceInfo {
 	return smd.ServiceInfo{
-		Description: ``,
 		Methods: map[string]smd.Service{
 			"Sum": {
 				Description: `Sum sums two digits and returns error with error code as result and IP from context.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "a",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "a",
+						Type: smd.Integer,
 					},
 					{
-						Name:        "b",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "b",
+						Type: smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Boolean,
+					Type: smd.Boolean,
 				},
 			},
 			"Positive": {
-				Description: ``,
-				Parameters:  []smd.JSONSchema{},
+				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Boolean,
+					Type: smd.Boolean,
 				},
 			},
 			"ReturnPointFromSamePackage": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "p",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Object,
-						Properties: map[string]smd.Property{
-							"Name": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+						Name: "p",
+						Type: smd.Object,
+						Properties: smd.PropertyList{
+							{
+								Name: "Name",
+								Type: smd.String,
 							},
-							"SomeField": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name: "SomeField",
+								Type: smd.String,
 							},
-							"Measure": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.Float,
+							{
+								Name: "Measure",
+								Type: smd.Float,
 							},
-							"A": {
-								Optional:    false,
+							{
+								Name:        "A",
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
-							"B": {
-								Optional:    false,
+							{
+								Name:        "B",
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
-							"when": {
+							{
+								Name:        "when",
 								Optional:    true,
 								Description: `when it happened`,
 								Ref:         "#/definitions/time.Time",
@@ -111,42 +96,38 @@ func (SubArithService) SMD() smd.ServiceInfo {
 						Definitions: map[string]smd.Definition{
 							"time.Time": {
 								Type:       "object",
-								Properties: map[string]smd.Property{},
+								Properties: smd.PropertyList{},
 							},
 						},
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"Name": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.String,
+					Type: smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name: "Name",
+							Type: smd.String,
 						},
-						"SomeField": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.String,
+						{
+							Name: "SomeField",
+							Type: smd.String,
 						},
-						"Measure": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.Float,
+						{
+							Name: "Measure",
+							Type: smd.Float,
 						},
-						"A": {
-							Optional:    false,
+						{
+							Name:        "A",
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
-						"B": {
-							Optional:    false,
+						{
+							Name:        "B",
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
-						"when": {
+						{
+							Name:        "when",
 							Optional:    true,
 							Description: `when it happened`,
 							Ref:         "#/definitions/time.Time",
@@ -156,75 +137,65 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					Definitions: map[string]smd.Definition{
 						"time.Time": {
 							Type:       "object",
-							Properties: map[string]smd.Property{},
+							Properties: smd.PropertyList{},
 						},
 					},
 				},
 			},
 			"GetPoints": {
-				Description: ``,
-				Parameters:  []smd.JSONSchema{},
+				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Array,
+					Type: smd.Array,
 					Items: map[string]string{
 						"$ref": "#/definitions/model.Point",
 					},
 					Definitions: map[string]smd.Definition{
 						"model.Point": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"Name": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+							Properties: smd.PropertyList{
+								{
+									Name: "Name",
+									Type: smd.String,
 								},
-								"SomeField": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "SomeField",
+									Type: smd.String,
 								},
-								"Measure": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Float,
+								{
+									Name: "Measure",
+									Type: smd.Float,
 								},
-								"X": {
-									Optional:    false,
+								{
+									Name:        "X",
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
-								"Y": {
-									Optional:    false,
+								{
+									Name:        "Y",
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
-								"ConnectedObject": {
-									Optional:    false,
-									Description: ``,
-									Ref:         "#/definitions/objects.AbstractObject",
-									Type:        smd.Object,
+								{
+									Name: "ConnectedObject",
+									Ref:  "#/definitions/objects.AbstractObject",
+									Type: smd.Object,
 								},
 							},
 						},
 						"objects.AbstractObject": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"Name": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+							Properties: smd.PropertyList{
+								{
+									Name: "Name",
+									Type: smd.String,
 								},
-								"SomeField": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "SomeField",
+									Type: smd.String,
 								},
-								"Measure": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Float,
+								{
+									Name: "Measure",
+									Type: smd.Float,
 								},
 							},
 						},
@@ -232,45 +203,40 @@ func (SubArithService) SMD() smd.ServiceInfo {
 				},
 			},
 			"GetPointsFromSamePackage": {
-				Description: ``,
-				Parameters:  []smd.JSONSchema{},
+				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Array,
+					Type: smd.Array,
 					Items: map[string]string{
 						"$ref": "#/definitions/Point",
 					},
 					Definitions: map[string]smd.Definition{
 						"Point": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"Name": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+							Properties: smd.PropertyList{
+								{
+									Name: "Name",
+									Type: smd.String,
 								},
-								"SomeField": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "SomeField",
+									Type: smd.String,
 								},
-								"Measure": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Float,
+								{
+									Name: "Measure",
+									Type: smd.Float,
 								},
-								"A": {
-									Optional:    false,
+								{
+									Name:        "A",
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
-								"B": {
-									Optional:    false,
+								{
+									Name:        "B",
 									Description: `coordinate`,
 									Type:        smd.Integer,
 								},
-								"when": {
+								{
+									Name:        "when",
 									Optional:    true,
 									Description: `when it happened`,
 									Ref:         "#/definitions/time.Time",
@@ -280,70 +246,60 @@ func (SubArithService) SMD() smd.ServiceInfo {
 						},
 						"time.Time": {
 							Type:       "object",
-							Properties: map[string]smd.Property{},
+							Properties: smd.PropertyList{},
 						},
 					},
 				},
 			},
 			"DoSomethingWithPoint": {
-				Description: ``,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "p",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Object,
-						Properties: map[string]smd.Property{
-							"Name": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+						Name: "p",
+						Type: smd.Object,
+						Properties: smd.PropertyList{
+							{
+								Name: "Name",
+								Type: smd.String,
 							},
-							"SomeField": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.String,
+							{
+								Name: "SomeField",
+								Type: smd.String,
 							},
-							"Measure": {
-								Optional:    false,
-								Description: ``,
-								Type:        smd.Float,
+							{
+								Name: "Measure",
+								Type: smd.Float,
 							},
-							"X": {
-								Optional:    false,
+							{
+								Name:        "X",
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
-							"Y": {
-								Optional:    false,
+							{
+								Name:        "Y",
 								Description: `coordinate`,
 								Type:        smd.Integer,
 							},
-							"ConnectedObject": {
-								Optional:    false,
-								Description: ``,
-								Ref:         "#/definitions/objects.AbstractObject",
-								Type:        smd.Object,
+							{
+								Name: "ConnectedObject",
+								Ref:  "#/definitions/objects.AbstractObject",
+								Type: smd.Object,
 							},
 						},
 						Definitions: map[string]smd.Definition{
 							"objects.AbstractObject": {
 								Type: "object",
-								Properties: map[string]smd.Property{
-									"Name": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+								Properties: smd.PropertyList{
+									{
+										Name: "Name",
+										Type: smd.String,
 									},
-									"SomeField": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.String,
+									{
+										Name: "SomeField",
+										Type: smd.String,
 									},
-									"Measure": {
-										Optional:    false,
-										Description: ``,
-										Type:        smd.Float,
+									{
+										Name: "Measure",
+										Type: smd.Float,
 									},
 								},
 							},
@@ -351,60 +307,51 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"Name": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.String,
+					Type: smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name: "Name",
+							Type: smd.String,
 						},
-						"SomeField": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.String,
+						{
+							Name: "SomeField",
+							Type: smd.String,
 						},
-						"Measure": {
-							Optional:    false,
-							Description: ``,
-							Type:        smd.Float,
+						{
+							Name: "Measure",
+							Type: smd.Float,
 						},
-						"X": {
-							Optional:    false,
+						{
+							Name:        "X",
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
-						"Y": {
-							Optional:    false,
+						{
+							Name:        "Y",
 							Description: `coordinate`,
 							Type:        smd.Integer,
 						},
-						"ConnectedObject": {
-							Optional:    false,
-							Description: ``,
-							Ref:         "#/definitions/objects.AbstractObject",
-							Type:        smd.Object,
+						{
+							Name: "ConnectedObject",
+							Ref:  "#/definitions/objects.AbstractObject",
+							Type: smd.Object,
 						},
 					},
 					Definitions: map[string]smd.Definition{
 						"objects.AbstractObject": {
 							Type: "object",
-							Properties: map[string]smd.Property{
-								"Name": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+							Properties: smd.PropertyList{
+								{
+									Name: "Name",
+									Type: smd.String,
 								},
-								"SomeField": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.String,
+								{
+									Name: "SomeField",
+									Type: smd.String,
 								},
-								"Measure": {
-									Optional:    false,
-									Description: ``,
-									Type:        smd.Float,
+								{
+									Name: "Measure",
+									Type: smd.Float,
 								},
 							},
 						},
@@ -415,32 +362,24 @@ func (SubArithService) SMD() smd.ServiceInfo {
 				Description: `Multiply multiples two digits and returns result.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "a",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "a",
+						Type: smd.Integer,
 					},
 					{
-						Name:        "b",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Integer,
+						Name: "b",
+						Type: smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Integer,
+					Type: smd.Integer,
 				},
 			},
 			"CheckError": {
 				Description: `CheckError throws error is isErr true.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "isErr",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Boolean,
+						Name: "isErr",
+						Type: smd.Boolean,
 					},
 				},
 				Errors: map[int]string{
@@ -451,10 +390,8 @@ func (SubArithService) SMD() smd.ServiceInfo {
 				Description: `CheckError throws zenrpc error is isErr true.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "isErr",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Boolean,
+						Name: "isErr",
+						Type: smd.Boolean,
 					},
 				},
 				Errors: map[int]string{
@@ -466,29 +403,26 @@ func (SubArithService) SMD() smd.ServiceInfo {
 				Parameters: []smd.JSONSchema{
 					{
 						Name:        "a",
-						Optional:    false,
 						Description: `the a`,
 						Type:        smd.Integer,
 					},
 					{
 						Name:        "b",
-						Optional:    false,
 						Description: `the b`,
 						Type:        smd.Integer,
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    true,
-					Type:        smd.Object,
-					Properties: map[string]smd.Property{
-						"Quo": {
-							Optional:    false,
+					Optional: true,
+					Type:     smd.Object,
+					Properties: smd.PropertyList{
+						{
+							Name:        "Quo",
 							Description: `Quo docs`,
 							Type:        smd.Integer,
 						},
-						"rem": {
-							Optional:    false,
+						{
+							Name:        "rem",
 							Description: `Rem docs`,
 							Type:        smd.Integer,
 						},
@@ -503,10 +437,8 @@ func (SubArithService) SMD() smd.ServiceInfo {
 				Description: `Pow returns x**y, the base-x exponential of y. If Exp is not set then default value is 2.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "base",
-						Optional:    false,
-						Description: ``,
-						Type:        smd.Float,
+						Name: "base",
+						Type: smd.Float,
 					},
 					{
 						Name:        "exp",
@@ -516,37 +448,30 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Float,
+					Type: smd.Float,
 				},
 			},
 			"Pi": {
 				Description: `PI returns math.Pi.`,
 				Parameters:  []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Float,
+					Type: smd.Float,
 				},
 			},
 			"SumArray": {
 				Description: `SumArray returns sum all items from array`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name:        "array",
-						Optional:    true,
-						Description: ``,
-						Type:        smd.Array,
+						Name:     "array",
+						Optional: true,
+						Type:     smd.Array,
 						Items: map[string]string{
 							"type": smd.Float,
 						},
 					},
 				},
 				Returns: smd.JSONSchema{
-					Description: ``,
-					Optional:    false,
-					Type:        smd.Float,
+					Type: smd.Float,
 				},
 			},
 		},

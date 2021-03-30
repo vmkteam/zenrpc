@@ -169,7 +169,7 @@ func (pi *PackageInfo) Parse(filename string) error {
 	// second loop: parse methods. It runs in separate loop because we need all services to be collected for this parsing
 	for _, pkg := range pfs {
 		for _, f := range pkg.AstFiles {
-			if err := pi.parseMethods(f); err != nil {
+			if err := pi.parseMethods(f, pkg.PackagePath); err != nil {
 				return err
 			}
 		}
@@ -235,7 +235,7 @@ func (pi *PackageInfo) collectServices(f *ast.File) {
 	}
 }
 
-func (pi *PackageInfo) parseMethods(f *ast.File) error {
+func (pi *PackageInfo) parseMethods(f *ast.File, packagePath string) error {
 	for _, decl := range f.Decls {
 		fdecl, ok := decl.(*ast.FuncDecl)
 		if !ok || fdecl.Recv == nil {
@@ -253,7 +253,7 @@ func (pi *PackageInfo) parseMethods(f *ast.File) error {
 			Errors:        []SMDError{},
 		}
 
-		serviceNames := m.linkWithServices(pi, fdecl)
+		serviceNames := m.linkWithServices(pi, fdecl, packagePath)
 
 		// services not found
 		if len(serviceNames) == 0 {
@@ -340,7 +340,7 @@ func (s Service) HasErrorVariable() bool {
 }
 
 // linkWithServices add method for services
-func (m *Method) linkWithServices(pi *PackageInfo, fdecl *ast.FuncDecl) (names []string) {
+func (m *Method) linkWithServices(pi *PackageInfo, fdecl *ast.FuncDecl, packagePath string) (names []string) {
 	for _, field := range fdecl.Recv.List {
 		// field can be pointer or not
 		var ident *ast.Ident
@@ -359,7 +359,7 @@ func (m *Method) linkWithServices(pi *PackageInfo, fdecl *ast.FuncDecl) (names [
 		// find service in our service list
 		// method can be in several services
 		for _, s := range pi.Services {
-			if s.Name == ident.Name {
+			if s.Name == ident.Name && pi.PackagePath == packagePath {
 				names = append(names, s.Name)
 				s.Methods = append(s.Methods, m)
 				break
