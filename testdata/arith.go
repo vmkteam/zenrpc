@@ -9,6 +9,8 @@ import (
 	"github.com/vmkteam/zenrpc/v2/testdata/model"
 )
 
+//go:generate zenrpc
+
 type ArithService struct{ zenrpc.Service }
 
 type Point struct {
@@ -114,5 +116,3 @@ func (as *ArithService) SumArray(array *[]float64) float64 {
 	}
 	return sum
 }
-
-//go:generate zenrpc

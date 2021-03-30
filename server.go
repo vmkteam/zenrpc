@@ -11,6 +11,7 @@ import (
 	"unicode"
 
 	"github.com/gorilla/websocket"
+
 	"github.com/vmkteam/zenrpc/v2/smd"
 )
 

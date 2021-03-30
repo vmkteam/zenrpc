@@ -9,6 +9,8 @@ import (
 	"github.com/vmkteam/zenrpc/v2/testdata/model"
 )
 
+//go:generate zenrpc
+
 type SubArithService struct{} //zenrpc
 
 // Sum sums two digits and returns error with error code as result and IP from context.
@@ -114,5 +116,3 @@ func (as *SubArithService) SumArray(array *[]float64) float64 {
 	}
 	return sum
 }
-
-//go:generate zenrpc
