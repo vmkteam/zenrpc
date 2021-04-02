@@ -132,3 +132,18 @@ func (pl PropertyList) MarshalJSON() ([]byte, error) {
 	buf.WriteString("}")
 	return buf.Bytes(), nil
 }
+
+func (pl *PropertyList) UnmarshalJSON(data []byte) error {
+	var v map[string]Property
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	var plist PropertyList
+	for k, vl := range v {
+		p := vl
+		p.Name = k
+		plist = append(plist, p)
+	}
+	*pl = plist
+	return nil
+}
