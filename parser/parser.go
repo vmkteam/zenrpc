@@ -630,6 +630,28 @@ func parseType(expr ast.Expr) string {
 	}
 }
 
+func getFinalType(expr ast.Expr) ast.Expr {
+	switch v := expr.(type) {
+	case *ast.StarExpr:
+		return getFinalType(v.X)
+	case *ast.SelectorExpr, *ast.MapType, *ast.InterfaceType:
+		return v
+	case *ast.ArrayType:
+		return getFinalType(v.Elt)
+	case *ast.Ident:
+		// aliases parsing
+		if v.Obj != nil && v.Obj.Decl != nil {
+			if decl, ok := v.Obj.Decl.(*ast.TypeSpec); ok {
+				return getFinalType(decl.Type)
+			}
+		}
+	default:
+		return v
+	}
+
+	return expr
+}
+
 // Returned value will be used as smd.{Value} variable from smd package
 func parseSMDType(expr ast.Expr) (string, string) {
 	switch v := expr.(type) {
@@ -655,6 +677,12 @@ func parseSMDType(expr ast.Expr) (string, string) {
 		case "float32", "float64", "complex64", "complex128":
 			return "Float", ""
 		default:
+			// aliases parsing
+			if v.Obj != nil && v.Obj.Decl != nil {
+				if decl, ok := v.Obj.Decl.(*ast.TypeSpec); ok {
+					return parseSMDType(decl.Type)
+				}
+			}
 			return "Object", "" // *ast.Ident contain type name, if type not basic then it struct or alias
 		}
 	default:
@@ -694,13 +722,13 @@ func parseStruct(expr ast.Expr) *Struct {
 			Type:      v.Name,
 		}
 
-		if v.Obj != nil && v.Obj.Decl != nil {
-			if ts, ok := v.Obj.Decl.(*ast.TypeSpec); ok {
-				if st, ok := ts.Type.(*ast.StructType); ok {
-					s.StructType = st
-				}
-			}
-		}
+		//if v.Obj != nil && v.Obj.Decl != nil {
+		//	if ts, ok := v.Obj.Decl.(*ast.TypeSpec); ok {
+		//		if st, ok := ts.Type.(*ast.StructType); ok {
+		//			s.StructType = st
+		//		}
+		//	}
+		//}
 
 		return s
 	default:
