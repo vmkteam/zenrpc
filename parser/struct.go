@@ -8,7 +8,7 @@ import (
 
 func (pi *PackageInfo) parseStructs() {
 	for _, s := range pi.Structs {
-		s.parse(pi)
+		s.parse(pi, []string{})
 	}
 }
 
@@ -20,7 +20,7 @@ func (s *Struct) findTypeSpec(pi *PackageInfo) bool {
 	for _, f := range pi.Scopes[s.Namespace] {
 		if obj, ok := f.Objects[s.Type]; ok && obj.Decl != nil {
 			if ts, ok := obj.Decl.(*ast.TypeSpec); ok {
-				if st, ok := ts.Type.(*ast.StructType); ok {
+				if st, ok := getFinalType(ts.Type).(*ast.StructType); ok {
 					s.StructType = st
 					return true
 				}
@@ -31,7 +31,7 @@ func (s *Struct) findTypeSpec(pi *PackageInfo) bool {
 	return false
 }
 
-func (s *Struct) parse(pi *PackageInfo) error {
+func (s *Struct) parse(pi *PackageInfo, parsed []string) error {
 	if !s.findTypeSpec(pi) || s.Properties != nil {
 		// can't find struct implementation
 		// or struct already parsed
@@ -39,6 +39,7 @@ func (s *Struct) parse(pi *PackageInfo) error {
 	}
 
 	s.Properties = []Property{}
+	parsed = append(parsed, s.Name)
 	for _, field := range s.StructType.Fields.List {
 		tag := parseJsonTag(field.Tag)
 
@@ -60,7 +61,7 @@ func (s *Struct) parse(pi *PackageInfo) error {
 					pi.Structs[embeddedS.Name] = embeddedS
 				}
 
-				if err := embeddedS.parse(pi); err != nil {
+				if err := embeddedS.parse(pi, parsed); err != nil {
 					return err
 				}
 
@@ -90,8 +91,8 @@ func (s *Struct) parse(pi *PackageInfo) error {
 			}
 
 			// avoid self-linked infinite recursion
-			if internalS.Name != s.Name {
-				if err := internalS.parse(pi); err != nil {
+			if !hasRef(internalS.Name, parsed) {
+				if err := internalS.parse(pi, parsed); err != nil {
 					return err
 				}
 			}
@@ -109,7 +110,7 @@ func (s *Struct) parse(pi *PackageInfo) error {
 
 			pi.Structs[inlineS.Name] = inlineS
 			ref = inlineS.Name
-			if err := inlineS.parse(pi); err != nil {
+			if err := inlineS.parse(pi, parsed); err != nil {
 				return err
 			}
 		}
@@ -168,20 +169,22 @@ func parseJsonTag(bl *ast.BasicLit) string {
 
 // Definitions returns list of structs used inside smdType
 func Definitions(smdType SMDType, structs map[string]*Struct) []*Struct {
-	if smdType.Ref == "" {
-		return nil
+	var defs []string
+
+	// array of objects
+	if smdType.Type == "Array" && smdType.ItemsType == "Object" {
+		defs = append(defs, smdType.Ref)
 	}
 
-	names := definitions(smdType, structs)
-	// todo what about arrays?
-	if smdType.Type == "Array" /*|| smdType.Type == "Object" */ {
-		// add object to definitions if type array
-		names = append([]string{smdType.Ref}, names...)
+	if s, ok := structs[smdType.Ref]; ok {
+		for _, p := range s.Properties {
+			defs = definitions(p.SMDType, structs, defs)
+		}
 	}
 
-	result := []*Struct{}
+	var result []*Struct
 	unique := map[string]struct{}{} // structs in result must be unique
-	for _, name := range names {
+	for _, name := range defs {
 		if s, ok := structs[name]; ok {
 			if _, ok := unique[name]; !ok {
 				result = append(result, s)
@@ -194,22 +197,33 @@ func Definitions(smdType SMDType, structs map[string]*Struct) []*Struct {
 }
 
 // definitions returns list of struct names used inside smdType
-func definitions(smdType SMDType, structs map[string]*Struct) []string {
-	result := []string{}
+func definitions(smdType SMDType, structs map[string]*Struct, defs []string) []string {
+	if smdType.Ref == "" || hasRef(smdType.Ref, defs) {
+		return defs
+	}
+
+	// array of objects
+	if (smdType.Type == "Array" && smdType.ItemsType == "Object") || smdType.Type == "Object" {
+		defs = append(defs, smdType.Ref)
+	}
+
 	if s, ok := structs[smdType.Ref]; ok {
 		for _, p := range s.Properties {
-			if p.SMDType.Ref != "" {
-				result = append(result, p.SMDType.Ref)
-
-				// avoid self-linked infinite recursion
-				if smdType.Ref != p.SMDType.Ref {
-					result = append(result, definitions(p.SMDType, structs)...)
-				}
-			}
+			defs = definitions(p.SMDType, structs, append(defs, p.SMDType.Ref))
 		}
 	}
 
-	return result
+	return defs
+}
+
+func hasRef(needle string, haystack []string) bool {
+	for _, n := range haystack {
+		if n == needle {
+			return true
+		}
+	}
+
+	return false
 }
 
 func uniqueStructsNamespaces(structs map[string]*Struct) (set map[string]struct{}) {
