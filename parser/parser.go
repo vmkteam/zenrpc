@@ -722,13 +722,25 @@ func parseStruct(expr ast.Expr) *Struct {
 			Type:      v.Name,
 		}
 
-		//if v.Obj != nil && v.Obj.Decl != nil {
-		//	if ts, ok := v.Obj.Decl.(*ast.TypeSpec); ok {
-		//		if st, ok := ts.Type.(*ast.StructType); ok {
-		//			s.StructType = st
-		//		}
-		//	}
-		//}
+		// aliases parsing
+		if v.Obj != nil && v.Obj.Decl != nil {
+			if ts, ok := v.Obj.Decl.(*ast.TypeSpec); ok {
+				if st, ok := ts.Type.(*ast.StructType); ok {
+					s.StructType = st
+				} else if arrayType, ok := ts.Type.(*ast.ArrayType); ok { // allias of array
+					if ident, ok := arrayType.Elt.(*ast.Ident); ok {
+						if ident.Obj != nil && ident.Obj.Decl != nil {
+							if ts, ok := ident.Obj.Decl.(*ast.TypeSpec); ok {
+								if st, ok := ts.Type.(*ast.StructType); ok {
+									s.Name = ident.Name
+									s.StructType = st
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 
 		return s
 	default:
