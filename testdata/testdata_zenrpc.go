@@ -495,47 +495,9 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 						Name: "groups",
 						Type: smd.Array,
 						Items: map[string]string{
-							"$ref": "#/definitions/Groups",
+							"$ref": "#/definitions/Group",
 						},
 						Definitions: map[string]smd.Definition{
-							"Groups": {
-								Type: "object",
-								Properties: smd.PropertyList{
-									{
-										Name: "id",
-										Type: smd.Integer,
-									},
-									{
-										Name: "title",
-										Type: smd.String,
-									},
-									{
-										Name: "nodes",
-										Type: smd.Array,
-										Items: map[string]string{
-											"$ref": "#/definitions/Group",
-										},
-									},
-									{
-										Name: "groups",
-										Type: smd.Array,
-										Items: map[string]string{
-											"$ref": "#/definitions/Group",
-										},
-									},
-									{
-										Name:     "child",
-										Optional: true,
-										Ref:      "#/definitions/Group",
-										Type:     smd.Object,
-									},
-									{
-										Name: "sub",
-										Ref:  "#/definitions/SubGroup",
-										Type: smd.Object,
-									},
-								},
-							},
 							"Group": {
 								Type: "object",
 								Properties: smd.PropertyList{
@@ -621,46 +583,8 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 										Name: "groups",
 										Type: smd.Array,
 										Items: map[string]string{
-											"$ref": "#/definitions/Groups",
-										},
-									},
-								},
-							},
-							"Groups": {
-								Type: "object",
-								Properties: smd.PropertyList{
-									{
-										Name: "id",
-										Type: smd.Integer,
-									},
-									{
-										Name: "title",
-										Type: smd.String,
-									},
-									{
-										Name: "nodes",
-										Type: smd.Array,
-										Items: map[string]string{
 											"$ref": "#/definitions/Group",
 										},
-									},
-									{
-										Name: "groups",
-										Type: smd.Array,
-										Items: map[string]string{
-											"$ref": "#/definitions/Group",
-										},
-									},
-									{
-										Name:     "child",
-										Optional: true,
-										Ref:      "#/definitions/Group",
-										Type:     smd.Object,
-									},
-									{
-										Name: "sub",
-										Ref:  "#/definitions/SubGroup",
-										Type: smd.Object,
 									},
 								},
 							},
@@ -742,49 +666,11 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 							Name: "groups",
 							Type: smd.Array,
 							Items: map[string]string{
-								"$ref": "#/definitions/Groups",
+								"$ref": "#/definitions/Group",
 							},
 						},
 					},
 					Definitions: map[string]smd.Definition{
-						"Groups": {
-							Type: "object",
-							Properties: smd.PropertyList{
-								{
-									Name: "id",
-									Type: smd.Integer,
-								},
-								{
-									Name: "title",
-									Type: smd.String,
-								},
-								{
-									Name: "nodes",
-									Type: smd.Array,
-									Items: map[string]string{
-										"$ref": "#/definitions/Group",
-									},
-								},
-								{
-									Name: "groups",
-									Type: smd.Array,
-									Items: map[string]string{
-										"$ref": "#/definitions/Group",
-									},
-								},
-								{
-									Name:     "child",
-									Optional: true,
-									Ref:      "#/definitions/Group",
-									Type:     smd.Object,
-								},
-								{
-									Name: "sub",
-									Ref:  "#/definitions/SubGroup",
-									Type: smd.Object,
-								},
-							},
-						},
 						"Group": {
 							Type: "object",
 							Properties: smd.PropertyList{
