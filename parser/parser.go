@@ -727,7 +727,7 @@ func parseStruct(expr ast.Expr) *Struct {
 			if ts, ok := v.Obj.Decl.(*ast.TypeSpec); ok {
 				if st, ok := ts.Type.(*ast.StructType); ok {
 					s.StructType = st
-				} else if arrayType, ok := ts.Type.(*ast.ArrayType); ok { // allias of array
+				} else if arrayType, ok := ts.Type.(*ast.ArrayType); ok { // alias of array
 					if ident, ok := arrayType.Elt.(*ast.Ident); ok {
 						if ident.Obj != nil && ident.Obj.Decl != nil {
 							if ts, ok := ident.Obj.Decl.(*ast.TypeSpec); ok {
