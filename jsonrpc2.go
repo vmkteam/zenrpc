@@ -152,6 +152,11 @@ func (e Error) Error() string {
 	return ErrorMsg(e.Code)
 }
 
+// Unwrap returns unwrapped inner error if exists
+func (e Error) Unwrap() error {
+	return e.Err
+}
+
 // NewResponseError returns new Response with Error object.
 func NewResponseError(id *json.RawMessage, code int, message string, data interface{}) Response {
 	if message == "" {
