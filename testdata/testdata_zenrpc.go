@@ -294,7 +294,7 @@ func (ArithService) SMD() smd.ServiceInfo {
 }
 
 // Invoke is as generated code from zenrpc cmd
-func (s ArithService) Invoke(ctx context.Context, method string, params json.RawMessage) zenrpc.Response {
+func (as ArithService) Invoke(ctx context.Context, method string, params json.RawMessage) zenrpc.Response {
 	resp := zenrpc.Response{}
 	var err error
 
@@ -317,16 +317,16 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			}
 		}
 
-		resp.Set(s.Sum(ctx, args.A, args.B))
+		resp.Set(as.Sum(ctx, args.A, args.B))
 
 	case RPC.ArithService.Positive:
-		resp.Set(s.Positive())
+		resp.Set(as.Positive())
 
 	case RPC.ArithService.DoSomething:
-		s.DoSomething()
+		as.DoSomething()
 
 	case RPC.ArithService.GetPoints:
-		resp.Set(s.GetPoints())
+		resp.Set(as.GetPoints())
 
 	case RPC.ArithService.DoSomethingWithPoint:
 		var args = struct {
@@ -345,7 +345,7 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			}
 		}
 
-		resp.Set(s.DoSomethingWithPoint(args.P))
+		resp.Set(as.DoSomethingWithPoint(args.P))
 
 	case RPC.ArithService.Multiply:
 		var args = struct {
@@ -365,7 +365,7 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			}
 		}
 
-		resp.Set(s.Multiply(args.A, args.B))
+		resp.Set(as.Multiply(args.A, args.B))
 
 	case RPC.ArithService.CheckError:
 		var args = struct {
@@ -384,7 +384,7 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			}
 		}
 
-		resp.Set(s.CheckError(args.IsErr))
+		resp.Set(as.CheckError(args.IsErr))
 
 	case RPC.ArithService.CheckZenRPCError:
 		var args = struct {
@@ -403,7 +403,7 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			}
 		}
 
-		resp.Set(s.CheckZenRPCError(args.IsErr))
+		resp.Set(as.CheckZenRPCError(args.IsErr))
 
 	case RPC.ArithService.Divide:
 		var args = struct {
@@ -423,7 +423,7 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			}
 		}
 
-		resp.Set(s.Divide(args.A, args.B))
+		resp.Set(as.Divide(args.A, args.B))
 
 	case RPC.ArithService.Pow:
 		var args = struct {
@@ -449,10 +449,10 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			args.Exp = &v
 		}
 
-		resp.Set(s.Pow(args.Base, args.Exp))
+		resp.Set(as.Pow(args.Base, args.Exp))
 
 	case RPC.ArithService.Pi:
-		resp.Set(s.Pi())
+		resp.Set(as.Pi())
 
 	case RPC.ArithService.SumArray:
 		var args = struct {
@@ -477,7 +477,7 @@ func (s ArithService) Invoke(ctx context.Context, method string, params json.Raw
 			args.Array = &v
 		}
 
-		resp.Set(s.SumArray(args.Array))
+		resp.Set(as.SumArray(args.Array))
 
 	default:
 		resp = zenrpc.NewResponseError(nil, zenrpc.MethodNotFound, "", nil)
@@ -1221,7 +1221,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 }
 
 // Invoke is as generated code from zenrpc cmd
-func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMessage) zenrpc.Response {
+func (pb PhoneBook) Invoke(ctx context.Context, method string, params json.RawMessage) zenrpc.Response {
 	resp := zenrpc.Response{}
 	var err error
 
@@ -1257,7 +1257,7 @@ func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMes
 			args.Page = &v
 		}
 
-		resp.Set(s.Get(args.Search, args.Page, args.Count))
+		resp.Set(pb.Get(args.Search, args.Page, args.Count))
 
 	case RPC.PhoneBook.ValidateSearch:
 		var args = struct {
@@ -1276,7 +1276,7 @@ func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMes
 			}
 		}
 
-		resp.Set(s.ValidateSearch(args.Search))
+		resp.Set(pb.ValidateSearch(args.Search))
 
 	case RPC.PhoneBook.ById:
 		var args = struct {
@@ -1295,7 +1295,7 @@ func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMes
 			}
 		}
 
-		resp.Set(s.ById(args.Id))
+		resp.Set(pb.ById(args.Id))
 
 	case RPC.PhoneBook.Delete:
 		var args = struct {
@@ -1314,7 +1314,7 @@ func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMes
 			}
 		}
 
-		resp.Set(s.Delete(args.Id))
+		resp.Set(pb.Delete(args.Id))
 
 	case RPC.PhoneBook.Remove:
 		var args = struct {
@@ -1333,7 +1333,7 @@ func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMes
 			}
 		}
 
-		resp.Set(s.Remove(args.Id))
+		resp.Set(pb.Remove(args.Id))
 
 	case RPC.PhoneBook.Save:
 		var args = struct {
@@ -1359,7 +1359,7 @@ func (s PhoneBook) Invoke(ctx context.Context, method string, params json.RawMes
 			args.Replace = &v
 		}
 
-		resp.Set(s.Save(args.P, args.Replace))
+		resp.Set(pb.Save(args.P, args.Replace))
 
 	default:
 		resp = zenrpc.NewResponseError(nil, zenrpc.MethodNotFound, "", nil)

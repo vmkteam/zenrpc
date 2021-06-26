@@ -11,7 +11,6 @@ import (
 	"unicode"
 
 	"github.com/gorilla/websocket"
-
 	"github.com/vmkteam/zenrpc/v2/smd"
 )
 
@@ -30,7 +29,7 @@ const (
 	// context key for namespace.
 	namespaceKey contextKey = "namespace"
 
-	// context key for ID.
+	// IDKey  context key for ID.
 	IDKey contextKey = "id"
 
 	// contentTypeJSON is default content type for HTTP transport.

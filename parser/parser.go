@@ -45,6 +45,7 @@ type Service struct {
 	Name        string
 	Methods     []*Method
 	Description string
+	Receiver    string
 }
 
 type Method struct {
@@ -57,6 +58,7 @@ type Method struct {
 	Returns       []Return
 	SMDReturn     *SMDReturn // return for generate smd schema; pointer for nil check
 	Description   string
+	ReceiverName  string
 
 	Errors []SMDError // errors for documentation in SMD
 }
@@ -146,7 +148,7 @@ func NewPackageInfo(filename string) (*PackageInfo, error) {
 	}, nil
 }
 
-// ParseFiles parse all files associated with package from original file
+// Parse parse all files associated with package from original file
 func (pi *PackageInfo) Parse(filename string) error {
 	pfs, err := GetDependenciesAstFiles(filename)
 	if err != nil {
@@ -179,6 +181,8 @@ func (pi *PackageInfo) Parse(filename string) error {
 	pi.collectImportsForGeneratedCode()
 
 	pi.parseStructs()
+
+	pi.fillReceivers()
 
 	return nil
 }
@@ -252,6 +256,9 @@ func (pi *PackageInfo) parseMethods(f *ast.File, packagePath string) error {
 			Description:   parseCommentGroup(fdecl.Doc),
 			Errors:        []SMDError{},
 		}
+		if len(fdecl.Recv.List) > 0 && len(fdecl.Recv.List[0].Names) > 0 {
+			m.ReceiverName = fdecl.Recv.List[0].Names[0].Name
+		}
 
 		serviceNames := m.linkWithServices(pi, fdecl, packagePath)
 
@@ -269,7 +276,7 @@ func (pi *PackageInfo) parseMethods(f *ast.File, packagePath string) error {
 		}
 
 		// parse default values
-		m.parseComments(fdecl.Doc, pi)
+		m.parseComments(fdecl.Doc)
 	}
 
 	return nil
@@ -329,6 +336,42 @@ func (pi PackageInfo) OutputFilename() string {
 	return filepath.Join(pi.Dir, pi.PackageName+GenerateFileSuffix)
 }
 
+var forbiddenReceivers = map[string]struct{}{
+	"":       {},
+	"RPC":    {},
+	"args":   {},
+	"ctx":    {},
+	"method": {},
+	"params": {},
+	"resp":   {},
+	"zenrpc": {},
+}
+
+func (pi *PackageInfo) fillReceivers() {
+	for i, s := range pi.Services {
+		var (
+			maxUsages    uint64
+			receiver     string
+			receiversMap = make(map[string]uint64)
+		)
+
+		for _, m := range s.Methods {
+			if _, forbidden := forbiddenReceivers[m.ReceiverName]; forbidden {
+				continue
+			}
+			receiversMap[m.ReceiverName]++
+			if receiversMap[m.ReceiverName] > maxUsages {
+				maxUsages = receiversMap[m.ReceiverName]
+				receiver = m.ReceiverName
+			}
+		}
+		if receiver == "" {
+			receiver = "s"
+		}
+		pi.Services[i].Receiver = receiver
+	}
+}
+
 // HasErrorVariable define adding err variable to generated Invoke function
 func (s Service) HasErrorVariable() bool {
 	for _, m := range s.Methods {
@@ -384,17 +427,21 @@ func (m *Method) parseArguments(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNam
 		typeName := parseType(field.Type)
 		if typeName == "" {
 			// get argument names
-			fields := []string{}
-			for _, name := range field.Names {
-				fields = append(fields, name.Name)
+			fields := make([]string, len(field.Names))
+			for i, name := range field.Names {
+				fields[i] = name.Name
 			}
 
 			// get Service.Method list
-			methods := []string{}
-			for _, s := range serviceNames {
-				methods = append(methods, s+"."+m.Name)
+			methods := make([]string, len(serviceNames))
+			for i, s := range serviceNames {
+				methods[i] = s + "." + m.Name
 			}
-			return fmt.Errorf("Can't parse type of argument %s in %s", strings.Join(fields, ", "), strings.Join(methods, ", "))
+			return fmt.Errorf(
+				"Can't parse type of argument %s in %s",
+				strings.Join(fields, ", "),
+				strings.Join(methods, ", "),
+			)
 		}
 
 		if typeName == contextTypeName {
@@ -450,9 +497,9 @@ func (m *Method) parseReturns(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNames
 
 	// get Service.Method list
 	methods := func() string {
-		methods := []string{}
-		for _, s := range serviceNames {
-			methods = append(methods, s+"."+m.Name)
+		methods := make([]string, len(serviceNames))
+		for i, s := range serviceNames {
+			methods[i] = s + "." + m.Name
 		}
 		return strings.Join(methods, ", ")
 	}
@@ -466,7 +513,11 @@ func (m *Method) parseReturns(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNames
 		// parse type
 		typeName := parseType(field.Type)
 		if typeName == "" {
-			return fmt.Errorf("Can't parse type of return value in %s on position %d", methods(), len(m.Returns)+1)
+			return fmt.Errorf(
+				"Can't parse type of return value in %s on position %d",
+				methods(),
+				len(m.Returns)+1,
+			)
 		}
 
 		var fieldName string
@@ -522,7 +573,7 @@ func (m *Method) parseReturns(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNames
 
 // parseComments parse method comments and
 // fill default values, description for params and user errors map
-func (m *Method) parseComments(doc *ast.CommentGroup, pi *PackageInfo) {
+func (m *Method) parseComments(doc *ast.CommentGroup) {
 	if doc == nil {
 		return
 	}
@@ -557,9 +608,7 @@ func (m *Method) parseComments(doc *ast.CommentGroup, pi *PackageInfo) {
 					}
 
 					m.Args[i].HasDefaultValue = true
-					if len(couple) == 2 {
-						m.Args[i].Description = couple[1]
-					}
+					m.Args[i].Description = couple[1]
 
 					break
 				}

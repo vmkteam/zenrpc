@@ -2,11 +2,12 @@ package parser
 
 import (
 	"fmt"
-	"github.com/thoas/go-funk"
 	"go/ast"
-	"golang.org/x/tools/go/packages"
 	"path"
 	"strings"
+
+	"github.com/thoas/go-funk"
+	"golang.org/x/tools/go/packages"
 )
 
 type PackageFiles struct {
@@ -25,11 +26,11 @@ func filterFile(filepath string) bool {
 }
 
 func getDependenciesFilenames(dir string) ([]string, error) {
-	goFiles := []string{}
 	pkgs, err := loadPackage(dir)
 	if err != nil {
 		return nil, err
 	}
+	goFiles := make([]string, 0, len(pkgs))
 	for _, pack := range pkgs {
 		goFiles = append(goFiles, goFilesFromPackage(pack)...)
 		for _, childPack := range pack.Imports {
@@ -44,7 +45,7 @@ func GetDependenciesAstFiles(filename string) ([]PackageFiles, error) {
 	if err != nil {
 		return nil, err
 	}
-	pfs := []PackageFiles{}
+	pfs := make([]PackageFiles, 0, len(pkgs))
 	done := map[string]bool{}
 	for _, pkg := range pkgs {
 		if _, ok := done[pkg.PkgPath]; ok {
@@ -77,9 +78,7 @@ func GetDependenciesAstFiles(filename string) ([]PackageFiles, error) {
 }
 
 func goFilesFromPackage(pkg *packages.Package) []string {
-	files := []string{}
-	files = append(files, pkg.GoFiles...)
-	return funk.FilterString(files, filterFile)
+	return funk.FilterString(pkg.GoFiles, filterFile)
 }
 
 func EntryPointPackageName(filename string) (string, string, error) {

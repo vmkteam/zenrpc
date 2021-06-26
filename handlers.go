@@ -25,7 +25,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// check for smd parameter and server settings and write schema if all conditions met,
 	if _, ok := r.URL.Query()["smd"]; ok && s.options.ExposeSMD && r.Method == http.MethodGet {
 		b, _ := json.Marshal(s.SMD())
-		w.Write(b)
+		_, _ = w.Write(b)
 		return
 	}
 
@@ -92,7 +92,9 @@ func (s Server) ServeWS(w http.ResponseWriter, r *http.Request) {
 		s.printf("upgrade connection failed with err=%v", err)
 		return
 	}
-	defer c.Close()
+	defer func(c *websocket.Conn) {
+		_ = c.Close()
+	}(c)
 
 	for {
 		mt, message, err := c.ReadMessage()
@@ -110,21 +112,21 @@ func (s Server) ServeWS(w http.ResponseWriter, r *http.Request) {
 		data, err := s.Do(newRequestContext(r.Context(), r), message)
 		if err != nil {
 			s.printf("marshal json response failed with err=%v", err)
-			c.WriteControl(websocket.CloseInternalServerErr, nil, time.Time{})
+			_ = c.WriteControl(websocket.CloseInternalServerErr, nil, time.Time{})
 			break
 		}
 
 		if err = c.WriteMessage(mt, data); err != nil {
 			s.printf("write response failed with err=%v", err)
-			c.WriteControl(websocket.CloseInternalServerErr, nil, time.Time{})
+			_ = c.WriteControl(websocket.CloseInternalServerErr, nil, time.Time{})
 			break
 		}
 	}
 }
 
 // SMDBoxHandler is a handler for SMDBox web app.
-func SMDBoxHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(`
+func SMDBoxHandler(w http.ResponseWriter, _ *http.Request) {
+	_, _ = w.Write([]byte(`
 <!DOCTYPE html>
 <html lang="en">
 <head>

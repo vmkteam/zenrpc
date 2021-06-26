@@ -29,7 +29,7 @@ func main() {
 	}
 
 	if len(filename) == 0 {
-		fmt.Fprintln(os.Stderr, "File path is empty")
+		_, _ = fmt.Fprintln(os.Stderr, "File path is empty")
 		os.Exit(1)
 	}
 
@@ -58,7 +58,7 @@ func main() {
 	}
 
 	if len(pi.Services) == 0 {
-		fmt.Fprintln(os.Stderr, "Services not found")
+		_, _ = fmt.Fprintln(os.Stderr, "Services not found")
 		os.Exit(1)
 	}
 
@@ -76,7 +76,7 @@ func main() {
 
 func printError(err error) {
 	// print error to stderr
-	fmt.Fprintf(os.Stderr, "Error: %s\n", err)
+	_, _ = fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 
 	// print contact information to stdout
 	fmt.Println("\nYou may help us and create issue:")
@@ -90,7 +90,9 @@ func generateFile(outputFileName string, pi *parser.PackageInfo) error {
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		_ = file.Close()
+	}(file)
 
 	output := new(bytes.Buffer)
 	if err := serviceTemplate.Execute(output, pi); err != nil {

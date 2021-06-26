@@ -8,7 +8,7 @@ import (
 
 func (pi *PackageInfo) parseStructs() {
 	for _, s := range pi.Structs {
-		s.parse(pi, []string{})
+		_ = s.parse(pi, []string{})
 	}
 }
 

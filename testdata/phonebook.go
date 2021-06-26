@@ -9,7 +9,7 @@ import (
 	"github.com/vmkteam/zenrpc/v2"
 )
 
-// SerialPeopleAccess is middleware for seiral access to PhoneBook methods
+// SerialPeopleAccess is middleware for serial access to PhoneBook methods
 func SerialPeopleAccess(pbNamespace string) zenrpc.MiddlewareFunc {
 	var lock sync.RWMutex
 	return func(h zenrpc.InvokeFunc) zenrpc.InvokeFunc {

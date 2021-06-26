@@ -479,7 +479,7 @@ func (SubArithService) SMD() smd.ServiceInfo {
 }
 
 // Invoke is as generated code from zenrpc cmd
-func (s SubArithService) Invoke(ctx context.Context, method string, params json.RawMessage) zenrpc.Response {
+func (as SubArithService) Invoke(ctx context.Context, method string, params json.RawMessage) zenrpc.Response {
 	resp := zenrpc.Response{}
 	var err error
 
@@ -502,10 +502,10 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			}
 		}
 
-		resp.Set(s.Sum(ctx, args.A, args.B))
+		resp.Set(as.Sum(ctx, args.A, args.B))
 
 	case RPC.SubArithService.Positive:
-		resp.Set(s.Positive())
+		resp.Set(as.Positive())
 
 	case RPC.SubArithService.ReturnPointFromSamePackage:
 		var args = struct {
@@ -524,13 +524,13 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			}
 		}
 
-		resp.Set(s.ReturnPointFromSamePackage(args.P))
+		resp.Set(as.ReturnPointFromSamePackage(args.P))
 
 	case RPC.SubArithService.GetPoints:
-		resp.Set(s.GetPoints())
+		resp.Set(as.GetPoints())
 
 	case RPC.SubArithService.GetPointsFromSamePackage:
-		resp.Set(s.GetPointsFromSamePackage())
+		resp.Set(as.GetPointsFromSamePackage())
 
 	case RPC.SubArithService.DoSomethingWithPoint:
 		var args = struct {
@@ -549,7 +549,7 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			}
 		}
 
-		resp.Set(s.DoSomethingWithPoint(args.P))
+		resp.Set(as.DoSomethingWithPoint(args.P))
 
 	case RPC.SubArithService.Multiply:
 		var args = struct {
@@ -569,7 +569,7 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			}
 		}
 
-		resp.Set(s.Multiply(args.A, args.B))
+		resp.Set(as.Multiply(args.A, args.B))
 
 	case RPC.SubArithService.CheckError:
 		var args = struct {
@@ -588,7 +588,7 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			}
 		}
 
-		resp.Set(s.CheckError(args.IsErr))
+		resp.Set(as.CheckError(args.IsErr))
 
 	case RPC.SubArithService.CheckZenRPCError:
 		var args = struct {
@@ -607,7 +607,7 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			}
 		}
 
-		resp.Set(s.CheckZenRPCError(args.IsErr))
+		resp.Set(as.CheckZenRPCError(args.IsErr))
 
 	case RPC.SubArithService.Divide:
 		var args = struct {
@@ -627,7 +627,7 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			}
 		}
 
-		resp.Set(s.Divide(args.A, args.B))
+		resp.Set(as.Divide(args.A, args.B))
 
 	case RPC.SubArithService.Pow:
 		var args = struct {
@@ -653,10 +653,10 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			args.Exp = &v
 		}
 
-		resp.Set(s.Pow(args.Base, args.Exp))
+		resp.Set(as.Pow(args.Base, args.Exp))
 
 	case RPC.SubArithService.Pi:
-		resp.Set(s.Pi())
+		resp.Set(as.Pi())
 
 	case RPC.SubArithService.SumArray:
 		var args = struct {
@@ -681,7 +681,7 @@ func (s SubArithService) Invoke(ctx context.Context, method string, params json.
 			args.Array = &v
 		}
 
-		resp.Set(s.SumArray(args.Array))
+		resp.Set(as.SumArray(args.Array))
 
 	default:
 		resp = zenrpc.NewResponseError(nil, zenrpc.MethodNotFound, "", nil)
