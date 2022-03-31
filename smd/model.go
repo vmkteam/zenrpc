@@ -3,6 +3,9 @@ package smd
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"regexp"
+	"strings"
 )
 
 const (
@@ -69,6 +72,7 @@ type JSONSchema struct {
 	// but positional parameters MAY be issued by the client and servers SHOULD support positional parameters.
 	Name        string                `json:"name,omitempty"`
 	Type        string                `json:"type,omitempty"`
+	TypeName    string                `json:"typeName,omitempty"`
 	Optional    bool                  `json:"optional,omitempty"`
 	Default     *json.RawMessage      `json:"default,omitempty"`
 	Description string                `json:"description,omitempty"`
@@ -146,4 +150,20 @@ func (pl *PropertyList) UnmarshalJSON(data []byte) error {
 	}
 	*pl = plist
 	return nil
+}
+
+var typeNameRegex = regexp.MustCompile(`[^a-zA-z1-9_]`)
+
+func TypeName(n, t string) string {
+	name := strings.Title(typeNameRegex.ReplaceAllString(n, ""))
+
+	if strings.ToLower(t) == Array {
+		return fmt.Sprintf("[]%s", name)
+	}
+
+	return name
+}
+
+func IsSMDTypeName(n, t string) bool {
+	return n == TypeName(n, t)
 }

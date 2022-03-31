@@ -9,6 +9,8 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/vmkteam/zenrpc/v2/smd"
 )
 
 const (
@@ -112,6 +114,7 @@ type SMDType struct {
 	Type      string
 	ItemsType string // for array
 	Ref       string // for object and also if array item is object
+	TypeName  string // alias for type for further generation
 }
 
 type SMDError struct {
@@ -511,6 +514,7 @@ func (m *Method) parseReturns(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNames
 			HasStar: hasStar,
 			SMDType: SMDType{
 				Type:      smdType,
+				TypeName:  smd.TypeName(ref, smdType),
 				ItemsType: itemType,
 				Ref:       ref,
 			},
@@ -567,6 +571,10 @@ func (m *Method) parseComments(doc *ast.CommentGroup, pi *PackageInfo) {
 		} else if couple[0] == "return" {
 			// description for return
 			// example: "//zenrpc:return operation result"
+
+			if smd.IsSMDTypeName(couple[1], m.SMDReturn.SMDType.Type) {
+				m.SMDReturn.SMDType.TypeName = couple[1]
+			}
 
 			m.SMDReturn.Description = couple[1]
 		} else if i, err := strconv.Atoi(couple[0]); err == nil {
