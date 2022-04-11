@@ -209,7 +209,7 @@ func definitions(smdType SMDType, structs map[string]*Struct, defs []string) []s
 
 	if s, ok := structs[smdType.Ref]; ok {
 		for _, p := range s.Properties {
-			defs = definitions(p.SMDType, structs, append(defs, p.SMDType.Ref))
+			defs = definitions(p.SMDType, structs, defs)
 		}
 	}
 
