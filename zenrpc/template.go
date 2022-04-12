@@ -12,6 +12,9 @@ var (
 		Parse(`
 {{define "smdType" -}}
 	Type: smd.{{.Type}},
+	{{- if ne .TypeName ""}}
+	TypeName: "{{.TypeName}}",
+	{{- end}}
 	{{- if eq .Type "Array" }}
 		Items: map[string]string{
 			{{- if and (eq .ItemsType "Object") .Ref }}

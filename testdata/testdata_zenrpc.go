@@ -84,7 +84,8 @@ func (ArithService) SMD() smd.ServiceInfo {
 			"GetPoints": {
 				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Type: smd.Array,
+					Type:     smd.Array,
+					TypeName: "[]ModelPoint",
 					Items: map[string]string{
 						"$ref": "#/definitions/model.Point",
 					},
@@ -147,7 +148,8 @@ func (ArithService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Type: smd.Object,
+					Type:     smd.Object,
+					TypeName: "ModelPoint",
 					Properties: smd.PropertyList{
 						{
 							Name:        "X",
@@ -230,6 +232,7 @@ func (ArithService) SMD() smd.ServiceInfo {
 				Returns: smd.JSONSchema{
 					Optional: true,
 					Type:     smd.Object,
+					TypeName: "Quotient",
 					Properties: smd.PropertyList{
 						{
 							Name:        "Quo",
@@ -656,7 +659,8 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 			"Third": {
 				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Type: smd.Object,
+					Type:     smd.Object,
+					TypeName: "Campaign",
 					Properties: smd.PropertyList{
 						{
 							Name: "id",
@@ -852,7 +856,8 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Type: smd.Array,
+					Type:     smd.Array,
+					TypeName: "[]Person",
 					Items: map[string]string{
 						"$ref": "#/definitions/Person",
 					},
@@ -978,6 +983,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Returns: smd.JSONSchema{
 					Optional: true,
 					Type:     smd.Object,
+					TypeName: "PersonSearch",
 					Properties: smd.PropertyList{
 						{
 							Name:        "ByName",
@@ -1030,6 +1036,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Returns: smd.JSONSchema{
 					Optional: true,
 					Type:     smd.Object,
+					TypeName: "Person",
 					Properties: smd.PropertyList{
 						{
 							Name:        "ID",

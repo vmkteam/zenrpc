@@ -34,7 +34,7 @@ func TestServer_SmdGenerate(t *testing.T) {
 	rpc.Register("printer", testdata.PrintService{})
 	rpc.Register("", testdata.ArithService{})
 
-	b, _ := json.Marshal(rpc.SMD())
+	b, _ := json.MarshalIndent(rpc.SMD(), "", "  ")
 
 	testData, err := ioutil.ReadFile("./testdata/testdata/arithsrv-smd.json")
 	if err != nil {
