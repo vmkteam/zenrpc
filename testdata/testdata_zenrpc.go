@@ -120,8 +120,9 @@ func (ArithService) SMD() smd.ServiceInfo {
 			"DoSomethingWithPoint": {
 				Parameters: []smd.JSONSchema{
 					{
-						Name: "p",
-						Type: smd.Object,
+						Name:     "p",
+						Type:     smd.Object,
+						TypeName: "ModelPoint",
 						Properties: smd.PropertyList{
 							{
 								Name:        "X",
@@ -283,6 +284,7 @@ func (ArithService) SMD() smd.ServiceInfo {
 						Name:     "array",
 						Optional: true,
 						Type:     smd.Array,
+						TypeName: "[]",
 						Items: map[string]string{
 							"type": smd.Float,
 						},
@@ -495,8 +497,9 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 			"First": {
 				Parameters: []smd.JSONSchema{
 					{
-						Name: "groups",
-						Type: smd.Array,
+						Name:     "groups",
+						Type:     smd.Array,
+						TypeName: "[]Group",
 						Items: map[string]string{
 							"$ref": "#/definitions/Group",
 						},
@@ -569,8 +572,9 @@ func (CatalogueService) SMD() smd.ServiceInfo {
 			"Second": {
 				Parameters: []smd.JSONSchema{
 					{
-						Name: "campaigns",
-						Type: smd.Array,
+						Name:     "campaigns",
+						Type:     smd.Array,
+						TypeName: "[]Campaign",
 						Items: map[string]string{
 							"$ref": "#/definitions/Campaign",
 						},
@@ -801,8 +805,9 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Description: `Get returns all people from DB.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name: "search",
-						Type: smd.Object,
+						Name:     "search",
+						Type:     smd.Object,
+						TypeName: "PersonSearch",
 						Properties: smd.PropertyList{
 							{
 								Name:        "ByName",
@@ -940,6 +945,7 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 						Optional:    true,
 						Description: `search object`,
 						Type:        smd.Object,
+						TypeName:    "PersonSearch",
 						Properties: smd.PropertyList{
 							{
 								Name:        "ByName",
@@ -1139,8 +1145,9 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 				Description: `Save saves person to DB.`,
 				Parameters: []smd.JSONSchema{
 					{
-						Name: "p",
-						Type: smd.Object,
+						Name:     "p",
+						Type:     smd.Object,
+						TypeName: "Person",
 						Properties: smd.PropertyList{
 							{
 								Name:        "ID",

@@ -436,6 +436,7 @@ func (m *Method) parseArguments(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNam
 				HasStar:     hasStar,
 				SMDType: SMDType{
 					Type:      smdType,
+					TypeName:  smd.TypeName(ref, smdType),
 					ItemsType: itemType,
 					Ref:       ref,
 				},
