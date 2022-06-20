@@ -76,6 +76,7 @@
         {
           "name": "p",
           "type": "object",
+          "typeName": "ModelPoint",
           "properties": {
             "X": {
               "type": "integer",
@@ -224,6 +225,7 @@
         {
           "name": "array",
           "type": "array",
+          "typeName": "[]",
           "optional": true,
           "items": {
             "type": "number"
@@ -305,6 +307,7 @@
         {
           "name": "p",
           "type": "object",
+          "typeName": "ModelPoint",
           "properties": {
             "X": {
               "type": "integer",
@@ -453,6 +456,7 @@
         {
           "name": "array",
           "type": "array",
+          "typeName": "[]",
           "optional": true,
           "items": {
             "type": "number"
@@ -555,6 +559,7 @@
         {
           "name": "search",
           "type": "object",
+          "typeName": "PersonSearch",
           "properties": {
             "ByName": {
               "type": "string",
@@ -687,6 +692,7 @@
         {
           "name": "p",
           "type": "object",
+          "typeName": "Person",
           "properties": {
             "ID": {
               "type": "integer",
@@ -764,6 +770,7 @@
         {
           "name": "search",
           "type": "object",
+          "typeName": "PersonSearch",
           "optional": true,
           "description": "search object",
           "properties": {

@@ -60,8 +60,9 @@ func (SubArithService) SMD() smd.ServiceInfo {
 			"ReturnPointFromSamePackage": {
 				Parameters: []smd.JSONSchema{
 					{
-						Name: "p",
-						Type: smd.Object,
+						Name:     "p",
+						Type:     smd.Object,
+						TypeName: "Point",
 						Properties: smd.PropertyList{
 							{
 								Name: "Name",
@@ -102,7 +103,8 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Type: smd.Object,
+					Type:     smd.Object,
+					TypeName: "Point",
 					Properties: smd.PropertyList{
 						{
 							Name: "Name",
@@ -145,7 +147,8 @@ func (SubArithService) SMD() smd.ServiceInfo {
 			"GetPoints": {
 				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Type: smd.Array,
+					Type:     smd.Array,
+					TypeName: "[]ModelPoint",
 					Items: map[string]string{
 						"$ref": "#/definitions/model.Point",
 					},
@@ -205,7 +208,8 @@ func (SubArithService) SMD() smd.ServiceInfo {
 			"GetPointsFromSamePackage": {
 				Parameters: []smd.JSONSchema{},
 				Returns: smd.JSONSchema{
-					Type: smd.Array,
+					Type:     smd.Array,
+					TypeName: "[]Point",
 					Items: map[string]string{
 						"$ref": "#/definitions/Point",
 					},
@@ -254,8 +258,9 @@ func (SubArithService) SMD() smd.ServiceInfo {
 			"DoSomethingWithPoint": {
 				Parameters: []smd.JSONSchema{
 					{
-						Name: "p",
-						Type: smd.Object,
+						Name:     "p",
+						Type:     smd.Object,
+						TypeName: "ModelPoint",
 						Properties: smd.PropertyList{
 							{
 								Name: "Name",
@@ -307,7 +312,8 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					},
 				},
 				Returns: smd.JSONSchema{
-					Type: smd.Object,
+					Type:     smd.Object,
+					TypeName: "ModelPoint",
 					Properties: smd.PropertyList{
 						{
 							Name: "Name",
@@ -415,6 +421,7 @@ func (SubArithService) SMD() smd.ServiceInfo {
 				Returns: smd.JSONSchema{
 					Optional: true,
 					Type:     smd.Object,
+					TypeName: "Quotient",
 					Properties: smd.PropertyList{
 						{
 							Name:        "Quo",
@@ -465,6 +472,7 @@ func (SubArithService) SMD() smd.ServiceInfo {
 						Name:     "array",
 						Optional: true,
 						Type:     smd.Array,
+						TypeName: "[]",
 						Items: map[string]string{
 							"type": smd.Float,
 						},
