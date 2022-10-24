@@ -347,8 +347,8 @@ func ConvertToObject(keys []string, params json.RawMessage) (json.RawMessage, er
 	return buf.Bytes(), nil
 }
 
-// newRequestContext creates new context with http.Request.
-func newRequestContext(ctx context.Context, req *http.Request) context.Context {
+// NewRequestContext creates new context with http.Request.
+func NewRequestContext(ctx context.Context, req *http.Request) context.Context {
 	return context.WithValue(ctx, requestKey, req)
 }
 

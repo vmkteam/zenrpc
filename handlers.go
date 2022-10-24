@@ -61,7 +61,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.printf("read request body failed with err=%v", err)
 		data = NewResponseError(nil, ParseError, "", nil)
 	} else {
-		data = s.process(newRequestContext(r.Context(), r), b)
+		data = s.process(NewRequestContext(r.Context(), r), b)
 	}
 
 	// if responses is empty -> all requests are notifications -> exit immediately
@@ -107,7 +107,7 @@ func (s Server) ServeWS(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 
-		data, err := s.Do(newRequestContext(r.Context(), r), message)
+		data, err := s.Do(NewRequestContext(r.Context(), r), message)
 		if err != nil {
 			s.printf("marshal json response failed with err=%v", err)
 			c.WriteControl(websocket.CloseInternalServerErr, nil, time.Time{})
