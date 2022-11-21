@@ -80,12 +80,11 @@ type Quotient struct {
 
 // Divide divides two numbers.
 //
-// zenrpc:-32603		divide by zero
-//
 //zenrpc:a			the a
 //zenrpc:b 			the b
 //zenrpc:quo		result is Quotient, should be named var
 //zenrpc:401 		we do not serve 1
+//zenrpc:-32603		divide by zero
 func (as *SubArithService) Divide(a, b int) (quo *Quotient, err error) {
 	if b == 0 {
 		return nil, errors.New("divide by zero")
