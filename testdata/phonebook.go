@@ -91,6 +91,7 @@ type PhoneBook struct {
 } //zenrpc
 
 // Get returns all people from DB.
+//
 //zenrpc:page=0 current page
 //zenrpc:count=50 page size
 func (pb PhoneBook) Get(search PersonSearch, page, count *int) (res []*Person) {
@@ -102,12 +103,14 @@ func (pb PhoneBook) Get(search PersonSearch, page, count *int) (res []*Person) {
 }
 
 // ValidateSearch returns given search as result.
+//
 //zenrpc:search search object
 func (pb PhoneBook) ValidateSearch(search *PersonSearch) *PersonSearch {
 	return search
 }
 
 // ById returns Person from DB.
+//
 //zenrpc:id person id
 //zenrpc:404 person was not found
 func (pb PhoneBook) ById(id uint64) (*Person, *zenrpc.Error) {
@@ -119,6 +122,7 @@ func (pb PhoneBook) ById(id uint64) (*Person, *zenrpc.Error) {
 }
 
 // Delete marks person as deleted.
+//
 //zenrpc:id person id
 //zenrpc:success operation result
 func (pb PhoneBook) Delete(id uint64) (success bool, error error) {
@@ -131,6 +135,7 @@ func (pb PhoneBook) Delete(id uint64) (success bool, error error) {
 }
 
 // Removes deletes person from DB.
+//
 //zenrpc:id person id
 //zenrpc:return operation result
 func (pb PhoneBook) Remove(id uint64) (success bool, error error) {
@@ -143,6 +148,7 @@ func (pb PhoneBook) Remove(id uint64) (success bool, error error) {
 }
 
 // Save saves person to DB.
+//
 //zenrpc:replace=false update person if exist
 //zenrpc:400 	invalid request
 //zenrpc:401 	use replace=true

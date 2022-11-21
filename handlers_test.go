@@ -13,6 +13,7 @@ import (
 	"testing"
 
 	"github.com/gorilla/websocket"
+
 	"github.com/vmkteam/zenrpc/v2"
 	"github.com/vmkteam/zenrpc/v2/testdata"
 )

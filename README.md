@@ -75,6 +75,7 @@ func (as ArithService) Divide(a, b int) (quo *Quotient, err error) {
 }
 
 // Pow returns x**y, the base-x exponential of y. If Exp is not set then default value is 2.
+//
 //zenrpc:exp=2
 func (as ArithService) Pow(base float64, exp float64) float64 {
 	return math.Pow(base, exp)
@@ -104,7 +105,8 @@ func main() {
 
 All comments are optional.
 
-    Method comments
+    // Method comments
+    //
     //zenrpc:<method parameter>[=<default value>][whitespaces<description>]
     //zenrpc:<error code>[whitespaces<description>]
     //zenrpc:return[whitespaces<description>]

@@ -2,11 +2,12 @@ package parser
 
 import (
 	"fmt"
-	"github.com/thoas/go-funk"
 	"go/ast"
-	"golang.org/x/tools/go/packages"
 	"path"
 	"strings"
+
+	"github.com/thoas/go-funk"
+	"golang.org/x/tools/go/packages"
 )
 
 type PackageFiles struct {
