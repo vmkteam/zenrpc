@@ -17,6 +17,7 @@ import (
 )
 
 const (
+	GeneratorVersion   = "2.2.8"
 	GenerateFileSuffix = "_zenrpc.go"
 
 	zenrpcComment     = "//zenrpc"
@@ -39,10 +40,11 @@ const (
 
 // PackageInfo represents struct info for XXX_zenrpc.go file generation
 type PackageInfo struct {
-	EntryPoint  string
-	Dir         string
-	PackageName string
-	PackagePath string
+	EntryPoint       string
+	Dir              string
+	PackageName      string
+	PackagePath      string
+	GeneratorVersion string
 
 	Services []*Service
 
@@ -146,11 +148,12 @@ func NewPackageInfo(filename string) (*PackageInfo, error) {
 	}
 
 	return &PackageInfo{
-		EntryPoint:  filename,
-		Dir:         dir,
-		PackageName: packageName,
-		PackagePath: packagePath,
-		Services:    []*Service{},
+		EntryPoint:       filename,
+		Dir:              dir,
+		PackageName:      packageName,
+		PackagePath:      packagePath,
+		GeneratorVersion: GeneratorVersion,
+		Services:         []*Service{},
 
 		Scopes:  make(map[string][]*ast.Scope),
 		Structs: make(map[string]*Struct),
@@ -390,7 +393,7 @@ func (m *Method) parseArguments(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNam
 		return nil
 	}
 
-	c := cases.Title(language.Und)
+	c := cases.Title(language.Und, cases.NoLower)
 
 	for _, field := range fdecl.Type.Params.List {
 		if field.Names == nil {

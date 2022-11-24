@@ -158,7 +158,7 @@ func (pl *PropertyList) UnmarshalJSON(data []byte) error {
 var typeNameRegex = regexp.MustCompile(`[^a-zA-z1-9_]`)
 
 func TypeName(n, t string) string {
-	c := cases.Title(language.Und)
+	c := cases.Title(language.Und, cases.NoLower)
 	name := c.String(typeNameRegex.ReplaceAllString(n, ""))
 
 	if strings.EqualFold(t, Array) {
