@@ -1,8 +1,9 @@
 package parser
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestLoadPackage(t *testing.T) {

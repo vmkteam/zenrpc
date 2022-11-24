@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 const (
@@ -155,9 +158,10 @@ func (pl *PropertyList) UnmarshalJSON(data []byte) error {
 var typeNameRegex = regexp.MustCompile(`[^a-zA-z1-9_]`)
 
 func TypeName(n, t string) string {
-	name := strings.Title(typeNameRegex.ReplaceAllString(n, ""))
+	c := cases.Title(language.Und, cases.NoLower)
+	name := c.String(typeNameRegex.ReplaceAllString(n, ""))
 
-	if strings.ToLower(t) == Array {
+	if strings.EqualFold(t, Array) {
 		return fmt.Sprintf("[]%s", name)
 	}
 

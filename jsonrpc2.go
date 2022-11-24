@@ -50,6 +50,7 @@ func ErrorMsg(code int) string {
 
 // Request is a json structure for json-rpc request to server. See:
 // http://www.jsonrpc.org/specification#request_object
+//
 //easyjson:json
 type Request struct {
 	// A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
@@ -75,6 +76,7 @@ type Request struct {
 
 // Response is json structure for json-rpc response from server. See:
 // http://www.jsonrpc.org/specification#response_object
+//
 //easyjson:json
 type Response struct {
 	// A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
@@ -108,6 +110,7 @@ func (r Response) JSON() []byte {
 
 // Error object used in response if function call errored. See:
 // http://www.jsonrpc.org/specification#error_object
+//
 //easyjson:json
 type Error struct {
 	// A Number that indicates the error type that occurred.

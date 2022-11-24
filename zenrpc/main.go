@@ -11,15 +11,13 @@ import (
 )
 
 const (
-	version = "2.2.7"
-
 	openIssueURL = "https://github.com/vmkteam/zenrpc/issues/new"
 	githubURL    = "https://github.com/vmkteam/zenrpc"
 )
 
 func main() {
 	start := time.Now()
-	fmt.Printf("Generator version: %s\n", version)
+	fmt.Printf("Generator version: %s\n", parser.GeneratorVersion)
 
 	var filename string
 	if len(os.Args) > 1 {
@@ -28,7 +26,7 @@ func main() {
 		filename = os.Getenv("GOFILE")
 	}
 
-	if len(filename) == 0 {
+	if filename == "" {
 		fmt.Fprintln(os.Stderr, "File path is empty")
 		os.Exit(1)
 	}

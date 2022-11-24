@@ -2,11 +2,10 @@ package parser
 
 import (
 	"fmt"
-	"github.com/thoas/go-funk"
 	"go/ast"
-	"golang.org/x/tools/go/packages"
 	"path"
-	"strings"
+
+	"golang.org/x/tools/go/packages"
 )
 
 type PackageFiles struct {
@@ -14,29 +13,6 @@ type PackageFiles struct {
 	PackageName string
 
 	AstFiles []*ast.File
-}
-
-func filterFile(filepath string) bool {
-	if !strings.HasSuffix(filepath, goFileSuffix) ||
-		strings.HasSuffix(filepath, GenerateFileSuffix) || strings.HasSuffix(filepath, testFileSuffix) {
-		return false
-	}
-	return true
-}
-
-func getDependenciesFilenames(dir string) ([]string, error) {
-	goFiles := []string{}
-	pkgs, err := loadPackage(dir)
-	if err != nil {
-		return nil, err
-	}
-	for _, pack := range pkgs {
-		goFiles = append(goFiles, goFilesFromPackage(pack)...)
-		for _, childPack := range pack.Imports {
-			goFiles = append(goFiles, goFilesFromPackage(childPack)...)
-		}
-	}
-	return funk.UniqString(goFiles), nil
 }
 
 func GetDependenciesAstFiles(filename string) ([]PackageFiles, error) {
@@ -74,12 +50,6 @@ func GetDependenciesAstFiles(filename string) ([]PackageFiles, error) {
 		}
 	}
 	return pfs, nil
-}
-
-func goFilesFromPackage(pkg *packages.Package) []string {
-	files := []string{}
-	files = append(files, pkg.GoFiles...)
-	return funk.FilterString(files, filterFile)
 }
 
 func EntryPointPackageName(filename string) (string, string, error) {
