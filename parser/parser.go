@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	GeneratorVersion   = "2.2.8"
+	GeneratorVersion   = "2.2.9"
 	GenerateFileSuffix = "_zenrpc.go"
 
 	zenrpcComment     = "//zenrpc"
