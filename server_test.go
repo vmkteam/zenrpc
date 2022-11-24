@@ -3,7 +3,7 @@ package zenrpc_test
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/vmkteam/zenrpc/v2"
@@ -36,7 +36,7 @@ func TestServer_SmdGenerate(t *testing.T) {
 
 	b, _ := json.MarshalIndent(rpc.SMD(), "", "  ")
 
-	testData, err := ioutil.ReadFile("./testdata/testdata/arithsrv-smd.json")
+	testData, err := os.ReadFile("./testdata/testdata/arithsrv-smd.json")
 	if err != nil {
 		t.Fatalf("open test data file")
 	}

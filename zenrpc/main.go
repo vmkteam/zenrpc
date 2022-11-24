@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	version = "2.2.7"
+	version = "2.2.8"
 
 	openIssueURL = "https://github.com/vmkteam/zenrpc/issues/new"
 	githubURL    = "https://github.com/vmkteam/zenrpc"
@@ -28,7 +28,7 @@ func main() {
 		filename = os.Getenv("GOFILE")
 	}
 
-	if len(filename) == 0 {
+	if filename == "" {
 		fmt.Fprintln(os.Stderr, "File path is empty")
 		os.Exit(1)
 	}

@@ -373,8 +373,8 @@ func NamespaceFromContext(ctx context.Context) string {
 }
 
 // newIDContext creates new context with current request ID.
-func newIDContext(ctx context.Context, ID *json.RawMessage) context.Context {
-	return context.WithValue(ctx, IDKey, ID)
+func newIDContext(ctx context.Context, id *json.RawMessage) context.Context {
+	return context.WithValue(ctx, IDKey, id)
 }
 
 // IDFromContext returns request ID from context.

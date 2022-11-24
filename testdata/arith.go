@@ -84,7 +84,6 @@ type Quotient struct {
 //zenrpc:b 			the b
 //zenrpc:quo		result is Quotient, should be named var
 //zenrpc:401 		we do not serve 1
-//zenrpc:-32603		divide by zero
 func (as *ArithService) Divide(a, b int) (quo *Quotient, err error) {
 	if b == 0 {
 		return nil, errors.New("divide by zero")
@@ -105,7 +104,7 @@ func (as *ArithService) Pow(base float64, exp *float64) float64 {
 	return math.Pow(base, *exp)
 }
 
-// PI returns math.Pi.
+// Pi returns math.Pi.
 func (ArithService) Pi() float64 {
 	return math.Pi
 }

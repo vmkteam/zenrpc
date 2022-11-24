@@ -2,7 +2,7 @@ package zenrpc
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -54,7 +54,7 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// ok, method is POST and content-type is application/json, process body
-	b, err := ioutil.ReadAll(r.Body)
+	b, err := io.ReadAll(r.Body)
 	var data interface{}
 
 	if err != nil {
@@ -80,8 +80,6 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.printf("write response failed with err=%v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 	}
-
-	return
 }
 
 // ServeWS processes JSON-RPC 2.0 requests via Gorilla WebSocket.

@@ -4,8 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"io/ioutil"
-	"log"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -43,12 +42,13 @@ func TestServer_ServeHTTPWithHeaders(t *testing.T) {
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, c.h, bytes.NewBufferString(`{"jsonrpc": "2.0", "method": "arith.pi", "id": 2 }`))
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		if res.StatusCode != c.s {
 			t.Errorf("Input: %s\n got %d expected %d", c.h, res.StatusCode, c.s)
 		}
+		res.Body.Close()
 	}
 }
 
@@ -112,13 +112,13 @@ func TestServer_ServeHTTP(t *testing.T) {
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, "application/json", bytes.NewBufferString(c.in))
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
-		resp, err := ioutil.ReadAll(res.Body)
+		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		if string(resp) != c.out {
@@ -165,13 +165,13 @@ func TestServer_ServeHTTPNotifications(t *testing.T) {
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, "application/json", bytes.NewBufferString(c.in))
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
-		resp, err := ioutil.ReadAll(res.Body)
+		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		if string(resp) != c.out {
@@ -223,13 +223,13 @@ func TestServer_ServeHTTPBatch(t *testing.T) {
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, "application/json", bytes.NewBufferString(c.in))
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
-		resp, err := ioutil.ReadAll(res.Body)
+		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		// checking if count of responses is correct
@@ -297,13 +297,13 @@ func TestServer_ServeHTTPWithErrors(t *testing.T) {
 	for _, c := range tc {
 		res, err := http.Post(c.url, "application/json", bytes.NewBufferString(c.in))
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
-		resp, err := ioutil.ReadAll(res.Body)
+		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		if string(resp) != c.out {
@@ -362,13 +362,13 @@ func TestServer_Extensions(t *testing.T) {
 	for _, c := range tc {
 		res, err := http.Post(c.url, "application/json", bytes.NewBufferString(c.in))
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
-		resp, err := ioutil.ReadAll(res.Body)
+		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		if string(resp) != c.out {
@@ -384,9 +384,10 @@ func TestServer_ServeWS(t *testing.T) {
 	u, _ := url.Parse(ts.URL)
 	u.Scheme = "ws"
 
+	//nolint:bodyclose
 	ws, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatal(err)
 	}
 	defer ws.Close()
 
@@ -421,13 +422,13 @@ func TestServer_ServeWS(t *testing.T) {
 
 	for _, c := range tc {
 		if err := ws.WriteMessage(websocket.TextMessage, []byte(c.in)); err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 			return
 		}
 
 		_, resp, err := ws.ReadMessage()
 		if err != nil {
-			log.Fatal(err)
+			t.Fatal(err)
 			return
 		}
 
@@ -437,7 +438,7 @@ func TestServer_ServeWS(t *testing.T) {
 	}
 
 	if err := ws.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "")); err != nil {
-		log.Fatal(err)
+		t.Fatal(err)
 		return
 	}
 }

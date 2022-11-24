@@ -136,11 +136,18 @@ We recommend to use [SMDBox](https://github.com/semrush/smdbox). It is Swagger-l
 # Server Library Features
 
  * [x] go generate
- * [ ] Transports
+ * [x] Transports
    * [x] HTTP
    * [x] WebSocket
-   * [ ] RabbitMQ
+   * [x] Nats via [brokersrv](https://github.com/vmkteam/brokersrv)
  * [x] Server middleware
    * [x] Basic support
    * [x] Metrics
    * [x] Logging
+
+# Zenrpc ecosystem
+
+ * [zenrpc middlewares collection](https://github.com/vmkteam/zenrpc-middleware)
+ * [brokersrv](https://github.com/vmkteam/brokersrv) for using [Nats](https://nats.io/) as transport
+ * [rpcgen](https://github.com/vmkteam/rpcgen) for generating Go/TypeScript/PHP RPC clients and OpenRPC schema support
+ * [rpcdiff](https://github.com/vmkteam/rpcdiff) for generating diff between old and new OpenRPC schemas. 

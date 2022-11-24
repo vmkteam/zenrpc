@@ -19,7 +19,7 @@
       }
     },
     "CheckZenRPCError": {
-      "description": "CheckError throws zenrpc error is isErr true.",
+      "description": "CheckZenRPCError throws zenrpc error is isErr true.",
       "parameters": [
         {
           "name": "isErr",
@@ -61,7 +61,6 @@
         }
       },
       "errors": {
-        "-32603": "divide by zero",
         "401": "we do not serve 1"
       }
     },
@@ -172,7 +171,7 @@
       }
     },
     "Pi": {
-      "description": "PI returns math.Pi.",
+      "description": "Pi returns math.Pi.",
       "parameters": [],
       "returns": {
         "type": "number"
@@ -250,7 +249,7 @@
       }
     },
     "arith.CheckZenRPCError": {
-      "description": "CheckError throws zenrpc error is isErr true.",
+      "description": "CheckZenRPCError throws zenrpc error is isErr true.",
       "parameters": [
         {
           "name": "isErr",
@@ -292,7 +291,6 @@
         }
       },
       "errors": {
-        "-32603": "divide by zero",
         "401": "we do not serve 1"
       }
     },
@@ -403,7 +401,7 @@
       }
     },
     "arith.Pi": {
-      "description": "PI returns math.Pi.",
+      "description": "Pi returns math.Pi.",
       "parameters": [],
       "returns": {
         "type": "number"

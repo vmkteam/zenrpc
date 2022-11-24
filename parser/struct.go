@@ -172,7 +172,7 @@ func Definitions(smdType SMDType, structs map[string]*Struct) []*Struct {
 	var defs []string
 
 	// array of objects
-	if smdType.Type == "Array" && smdType.ItemsType == "Object" {
+	if smdType.Type == SmdArray && smdType.ItemsType == SmdObject {
 		defs = append(defs, smdType.Ref)
 	}
 
@@ -203,7 +203,7 @@ func definitions(smdType SMDType, structs map[string]*Struct, defs []string) []s
 	}
 
 	// array of objects
-	if (smdType.Type == "Array" && smdType.ItemsType == "Object") || smdType.Type == "Object" {
+	if (smdType.Type == SmdArray && smdType.ItemsType == SmdObject) || smdType.Type == SmdObject {
 		defs = append(defs, smdType.Ref)
 	}
 
@@ -224,17 +224,4 @@ func hasRef(needle string, haystack []string) bool {
 	}
 
 	return false
-}
-
-func uniqueStructsNamespaces(structs map[string]*Struct) (set map[string]struct{}) {
-	set = make(map[string]struct{})
-	for _, s := range structs {
-		if s.Namespace != "" {
-			if _, ok := set[s.Namespace]; !ok {
-				set[s.Namespace] = struct{}{}
-			}
-		}
-	}
-
-	return
 }

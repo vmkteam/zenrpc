@@ -393,7 +393,7 @@ func (SubArithService) SMD() smd.ServiceInfo {
 				},
 			},
 			"CheckZenRPCError": {
-				Description: `CheckError throws zenrpc error is isErr true.`,
+				Description: `CheckZenRPCError throws zenrpc error is isErr true.`,
 				Parameters: []smd.JSONSchema{
 					{
 						Name: "isErr",
@@ -436,8 +436,7 @@ func (SubArithService) SMD() smd.ServiceInfo {
 					},
 				},
 				Errors: map[int]string{
-					401:    "we do not serve 1",
-					-32603: "divide by zero",
+					401: "we do not serve 1",
 				},
 			},
 			"Pow": {

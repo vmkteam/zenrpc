@@ -10,6 +10,9 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"github.com/vmkteam/zenrpc/v2/smd"
 )
 
@@ -23,6 +26,15 @@ const (
 	testFileSuffix    = "_test.go"
 	goFileSuffix      = ".go"
 	zenrpcMagicPrefix = "//zenrpc:"
+)
+
+const (
+	SmdArray   = "Array"
+	SmdObject  = "Object"
+	SmdBoolean = "Boolean"
+	SmdString  = "String"
+	SmdInteger = "Integer"
+	SmdFloat   = "Float"
 )
 
 // PackageInfo represents struct info for XXX_zenrpc.go file generation
@@ -303,7 +315,7 @@ func (pi PackageInfo) String() string {
 			}
 
 			// only one return arg without name
-			if len(m.Returns) == 1 && len(m.Returns[0].Name) == 0 {
+			if len(m.Returns) == 1 && m.Returns[0].Name == "" {
 				result += m.Returns[0].Type + "\n"
 				continue
 			}
@@ -312,10 +324,10 @@ func (pi PackageInfo) String() string {
 			result += "("
 			for i, a := range m.Returns {
 				if i != 0 {
-					result += fmt.Sprintf(", ")
+					result += ", "
 				}
 
-				if len(a.Name) == 0 {
+				if a.Name == "" {
 					result += a.Type
 				} else {
 					result += fmt.Sprintf("%s %s", a.Name, a.Type)
@@ -378,6 +390,8 @@ func (m *Method) parseArguments(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNam
 		return nil
 	}
 
+	c := cases.Title(language.Und)
+
 	for _, field := range fdecl.Type.Params.List {
 		if field.Names == nil {
 			continue
@@ -431,7 +445,7 @@ func (m *Method) parseArguments(pi *PackageInfo, fdecl *ast.FuncDecl, serviceNam
 			m.Args = append(m.Args, Arg{
 				Name:        name.Name,
 				Type:        typeName,
-				CapitalName: strings.Title(name.Name),
+				CapitalName: c.String(name.Name),
 				JsonName:    lowerFirst(name.Name),
 				HasStar:     hasStar,
 				SMDType: SMDType{
@@ -580,7 +594,7 @@ func (m *Method) parseComments(doc *ast.CommentGroup, pi *PackageInfo) {
 			m.SMDReturn.Description = couple[1]
 		} else if i, err := strconv.Atoi(couple[0]); err == nil {
 			// error code
-			// example: "//zenrpc:-32603		divide by zero"
+			// example: "//zenrpc:999		divide by zero"
 
 			m.Errors = append(m.Errors, SMDError{i, couple[1]})
 		} else {
@@ -613,6 +627,8 @@ func parseCommentGroup(doc *ast.CommentGroup) string {
 		}
 		result += strings.TrimSpace(strings.TrimPrefix(comment.Text, "//"))
 	}
+
+	result = strings.TrimSuffix(result, "\n")
 
 	return result
 }
@@ -667,24 +683,24 @@ func parseSMDType(expr ast.Expr) (string, string) {
 	case *ast.StarExpr:
 		return parseSMDType(v.X)
 	case *ast.SelectorExpr, *ast.MapType, *ast.InterfaceType:
-		return "Object", ""
+		return SmdObject, ""
 	case *ast.ArrayType:
 		mainType, itemType := parseSMDType(v.Elt)
 		if itemType != "" {
-			return "Array", itemType
+			return SmdArray, itemType
 		}
 
-		return "Array", mainType
+		return SmdArray, mainType
 	case *ast.Ident:
 		switch v.Name {
 		case "bool":
-			return "Boolean", ""
+			return SmdBoolean, ""
 		case "string":
-			return "String", ""
+			return SmdString, ""
 		case "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "uintptr", "byte", "rune":
-			return "Integer", ""
+			return SmdInteger, ""
 		case "float32", "float64", "complex64", "complex128":
-			return "Float", ""
+			return SmdFloat, ""
 		default:
 			// aliases parsing
 			if v.Obj != nil && v.Obj.Decl != nil {
@@ -692,10 +708,10 @@ func parseSMDType(expr ast.Expr) (string, string) {
 					return parseSMDType(decl.Type)
 				}
 			}
-			return "Object", "" // *ast.Ident contain type name, if type not basic then it struct or alias
+			return SmdObject, "" // *ast.Ident contain type name, if type not basic then it struct or alias
 		}
 	default:
-		return "Object", "" // default complex type is object
+		return SmdObject, "" // default complex type is object
 	}
 }
 
@@ -794,9 +810,5 @@ func lowerFirst(s string) string {
 }
 
 func hasStar(s string) bool {
-	if s[:1] == "*" {
-		return true
-	}
-
-	return false
+	return s[:1] == "*"
 }
