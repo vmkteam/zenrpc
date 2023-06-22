@@ -883,6 +883,10 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 									Type: smd.String,
 								},
 								{
+									Name: "BirthDate",
+									Type: smd.String,
+								},
+								{
 									Name:        "Phone",
 									Description: `Phone is main phone`,
 									Type:        smd.String,
@@ -1057,6 +1061,10 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							Type: smd.String,
 						},
 						{
+							Name: "BirthDate",
+							Type: smd.String,
+						},
+						{
 							Name:        "Phone",
 							Description: `Phone is main phone`,
 							Type:        smd.String,
@@ -1159,6 +1167,10 @@ func (PhoneBook) SMD() smd.ServiceInfo {
 							},
 							{
 								Name: "LastName",
+								Type: smd.String,
+							},
+							{
+								Name: "BirthDate",
 								Type: smd.String,
 							},
 							{

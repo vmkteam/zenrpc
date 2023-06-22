@@ -685,7 +685,13 @@ func parseSMDType(expr ast.Expr) (string, string) {
 	switch v := expr.(type) {
 	case *ast.StarExpr:
 		return parseSMDType(v.X)
-	case *ast.SelectorExpr, *ast.MapType, *ast.InterfaceType:
+	case *ast.SelectorExpr:
+		//save time.Time as string type in SMD
+		if v.X.(*ast.Ident).Name == "time" && v.Sel.Name == "Time" {
+			return SmdString, ""
+		}
+		return SmdObject, ""
+	case *ast.MapType, *ast.InterfaceType:
 		return SmdObject, ""
 	case *ast.ArrayType:
 		mainType, itemType := parseSMDType(v.Elt)
@@ -725,6 +731,10 @@ func parseStruct(expr ast.Expr) *Struct {
 		return parseStruct(v.X)
 	case *ast.SelectorExpr:
 		namespace := v.X.(*ast.Ident).Name
+		//skip time.Time struct parsing
+		if namespace == "time" && v.Sel.Name == "Time" {
+			return nil
+		}
 		return &Struct{
 			Name:      namespace + "." + v.Sel.Name,
 			Namespace: namespace,

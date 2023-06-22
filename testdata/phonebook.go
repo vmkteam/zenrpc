@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"sync"
+	"time"
 
 	"github.com/vmkteam/zenrpc/v2"
 )
@@ -59,6 +60,8 @@ type Person struct {
 	// ID is Unique Identifier for person
 	ID                  uint64
 	FirstName, LastName string
+	BirthDate           time.Time
+
 	// Phone is main phone
 	Phone     string
 	WorkPhone *string

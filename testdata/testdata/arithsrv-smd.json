@@ -489,6 +489,9 @@
           "LastName": {
             "type": "string"
           },
+          "BirthDate": {
+            "type": "string"
+          },
           "Phone": {
             "type": "string",
             "description": "Phone is main phone"
@@ -632,6 +635,9 @@
               "LastName": {
                 "type": "string"
               },
+              "BirthDate": {
+                "type": "string"
+              },
               "Phone": {
                 "type": "string",
                 "description": "Phone is main phone"
@@ -700,6 +706,9 @@
               "type": "string"
             },
             "LastName": {
+              "type": "string"
+            },
+            "BirthDate": {
               "type": "string"
             },
             "Phone": {
