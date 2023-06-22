@@ -65,7 +65,7 @@ func EntryPointPackageName(filename string) (string, string, error) {
 
 func loadPackage(path string) ([]*packages.Package, error) {
 	return packages.Load(&packages.Config{
-		Mode: packages.NeedImports | packages.NeedFiles | packages.NeedName,
+		Mode: packages.NeedImports | packages.NeedFiles | packages.NeedDeps | packages.NeedName,
 	}, path)
 }
 
@@ -73,6 +73,7 @@ func loadPackageWithSyntax(path string) ([]*packages.Package, error) {
 	return packages.Load(&packages.Config{
 		Mode: packages.NeedImports |
 			packages.NeedFiles |
+			packages.NeedDeps |
 			packages.NeedName |
 			packages.NeedSyntax,
 	}, path)
