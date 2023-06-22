@@ -25,3 +25,8 @@ require (
 	golang.org/x/sys v0.9.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 )
+
+retract (
+	v2.2.10 //invalid version cached
+	v2.2.5
+)
