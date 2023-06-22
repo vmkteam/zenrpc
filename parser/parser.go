@@ -17,7 +17,6 @@ import (
 )
 
 const (
-	GeneratorVersion   = "2.2.9"
 	GenerateFileSuffix = "_zenrpc.go"
 
 	zenrpcComment     = "//zenrpc"
@@ -37,6 +36,8 @@ const (
 	SmdInteger = "Integer"
 	SmdFloat   = "Float"
 )
+
+var GeneratorVersion = "unknown"
 
 // PackageInfo represents struct info for XXX_zenrpc.go file generation
 type PackageInfo struct {

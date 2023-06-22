@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"go/format"
 	"os"
+	"runtime/debug"
 	"time"
 
 	"github.com/vmkteam/zenrpc/v2/parser"
@@ -17,6 +18,8 @@ const (
 
 func main() {
 	start := time.Now()
+
+	appVersion()
 	fmt.Printf("Generator version: %s\n", parser.GeneratorVersion)
 
 	var filename string
@@ -105,4 +108,13 @@ func generateFile(outputFileName string, pi *parser.PackageInfo) error {
 	}
 
 	return nil
+}
+
+func appVersion() {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return
+	}
+
+	parser.GeneratorVersion = info.Main.Version
 }
