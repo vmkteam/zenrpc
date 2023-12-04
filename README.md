@@ -22,7 +22,7 @@ It's built on top of `go generate` instead of reflection.
 
 ```Service is struct with RPC methods, service represents RPC namespace.```
 
-  1. Install zenrpc generator `go get github.com/vmkteam/zenrpc/v2/zenrpc`
+  1. Install zenrpc generator: `go install github.com/vmkteam/zenrpc/v2/zenrpc@latest`
   1. Import `github.com/vmkteam/zenrpc/v2` into our code with rpc service.
   1. Add trailing comment `//zenrpc` to your service or embed `zenrpc.Service` into your service struct.
   1. Write your funcs almost as usual.
