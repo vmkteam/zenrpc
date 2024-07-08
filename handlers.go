@@ -129,10 +129,10 @@ func SMDBoxHandler(w http.ResponseWriter, r *http.Request) {
     <meta charset="UTF-8">
     <title>SMD Box</title>
     <link rel="stylesheet" href="https://bootswatch.com/3/paper/bootstrap.min.css">
-	<link href="https://cdn.jsdelivr.net/gh/semrush/smdbox@latest/dist/app.css" rel="stylesheet"></head>
+	<link href="https://cdn.jsdelivr.net/gh/vmkteam/smdbox@latest/dist/app.css" rel="stylesheet"></head>
 <body>
 <div id="json-rpc-root"></div>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/semrush/smdbox@latest/dist/app.js"></script></body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vmkteam/smdbox@latest/dist/app.js"></script></body>
 </html>
 	`))
 }
