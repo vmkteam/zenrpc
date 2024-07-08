@@ -824,5 +824,5 @@ func lowerFirst(s string) string {
 }
 
 func hasStar(s string) bool {
-	return s[:1] == "*"
+	return len(s) > 0 && s[:1] == "*"
 }
