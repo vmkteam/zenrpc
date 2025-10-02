@@ -30,6 +30,7 @@ type Campaign struct {
 
 type CatalogueService struct{ zenrpc.Service }
 
+// Validates the provided groups structure and returns true if valid.
 func (s CatalogueService) First(groups Groups) (bool, error) {
 	return true, nil
 }
@@ -38,6 +39,7 @@ func (s CatalogueService) Second(campaigns []Campaign) (bool, error) {
 	return true, nil
 }
 
+// Returns an empty campaign structure. Can be used as a template.
 func (s CatalogueService) Third() (Campaign, error) {
 	return Campaign{}, nil
 }
