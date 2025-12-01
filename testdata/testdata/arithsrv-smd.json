@@ -852,6 +852,18 @@
         }
       }
     },
+    "printer.PrintAnything": {
+      "description": "",
+      "parameters": [
+        {
+          "name": "s",
+          "type": "object"
+        }
+      ],
+      "returns": {
+        "type": "object"
+      }
+    },
     "printer.PrintOptional": {
       "description": "",
       "parameters": [

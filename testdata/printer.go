@@ -26,3 +26,7 @@ func (PrintService) PrintOptional(s *string) string {
 
 	return *s
 }
+
+func (PrintService) PrintAnything(s any) any {
+	return s
+}

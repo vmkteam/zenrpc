@@ -16,7 +16,7 @@ var RPC = struct {
 	ArithService     struct{ Sum, Positive, DoSomething, GetPoints, DoSomethingWithPoint, Multiply, CheckError, CheckZenRPCError, Divide, Pow, Pi, SumArray string }
 	CatalogueService struct{ First, Second, Third string }
 	PhoneBook        struct{ Get, ValidateSearch, ById, Delete, Remove, Save string }
-	PrintService     struct{ PrintRequiredDefault, PrintOptionalWithDefault, PrintRequired, PrintOptional string }
+	PrintService     struct{ PrintRequiredDefault, PrintOptionalWithDefault, PrintRequired, PrintOptional, PrintAnything string }
 }{
 	ArithService: struct{ Sum, Positive, DoSomething, GetPoints, DoSomethingWithPoint, Multiply, CheckError, CheckZenRPCError, Divide, Pow, Pi, SumArray string }{
 		Sum:                  "sum",
@@ -45,11 +45,12 @@ var RPC = struct {
 		Remove:         "remove",
 		Save:           "save",
 	},
-	PrintService: struct{ PrintRequiredDefault, PrintOptionalWithDefault, PrintRequired, PrintOptional string }{
+	PrintService: struct{ PrintRequiredDefault, PrintOptionalWithDefault, PrintRequired, PrintOptional, PrintAnything string }{
 		PrintRequiredDefault:     "printrequireddefault",
 		PrintOptionalWithDefault: "printoptionalwithdefault",
 		PrintRequired:            "printrequired",
 		PrintOptional:            "printoptional",
+		PrintAnything:            "printanything",
 	},
 }
 
@@ -1443,6 +1444,17 @@ func (PrintService) SMD() smd.ServiceInfo {
 					Type: smd.String,
 				},
 			},
+			"PrintAnything": {
+				Parameters: []smd.JSONSchema{
+					{
+						Name: "s",
+						Type: smd.Object,
+					},
+				},
+				Returns: smd.JSONSchema{
+					Type: smd.Object,
+				},
+			},
 		},
 	}
 }
@@ -1540,6 +1552,25 @@ func (s PrintService) Invoke(ctx context.Context, method string, params json.Raw
 		}
 
 		resp.Set(s.PrintOptional(args.S))
+
+	case RPC.PrintService.PrintAnything:
+		var args = struct {
+			S any `json:"s"`
+		}{}
+
+		if zenrpc.IsArray(params) {
+			if params, err = zenrpc.ConvertToObject([]string{"s"}, params); err != nil {
+				return zenrpc.NewResponseError(nil, zenrpc.InvalidParams, "", err.Error())
+			}
+		}
+
+		if len(params) > 0 {
+			if err := json.Unmarshal(params, &args); err != nil {
+				return zenrpc.NewResponseError(nil, zenrpc.InvalidParams, "", err.Error())
+			}
+		}
+
+		resp.Set(s.PrintAnything(args.S))
 
 	default:
 		resp = zenrpc.NewResponseError(nil, zenrpc.MethodNotFound, "", nil)
