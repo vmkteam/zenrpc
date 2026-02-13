@@ -53,7 +53,6 @@ import (
 	"os"
 
 	"github.com/vmkteam/zenrpc/v2"
-	"github.com/vmkteam/zenrpc/v2/testdata"
 )
 
 type ArithService struct{ zenrpc.Service }
@@ -74,7 +73,10 @@ type Quotient struct {
 	Quo, Rem int
 }
 
-func (as ArithService) Divide(a, b int) (quo *Quotient, err error) {
+// Divide divides two numbers.
+//
+//zenrpc:401 we do not serve 1
+func (as *ArithService) Divide(a, b int) (quo *Quotient, err error) {
 	if b == 0 {
 		return nil, errors.New("divide by zero")
 	} else if b == 1 {
@@ -90,8 +92,8 @@ func (as ArithService) Divide(a, b int) (quo *Quotient, err error) {
 // Pow returns x**y, the base-x exponential of y. If Exp is not set then default value is 2.
 //
 //zenrpc:exp=2
-func (as ArithService) Pow(base float64, exp float64) float64 {
-	return math.Pow(base, exp)
+func (as *ArithService) Pow(base float64, exp *float64) float64 {
+	return math.Pow(base, *exp)
 }
 
 //go:generate zenrpc
@@ -101,8 +103,8 @@ func main() {
 	flag.Parse()
 
 	rpc := zenrpc.NewServer(zenrpc.Options{ExposeSMD: true})
-	rpc.Register("arith", testdata.ArithService{})
-	rpc.Register("", testdata.ArithService{}) // public
+	rpc.Register("arith", ArithService{})
+	rpc.Register("", ArithService{}) // public
 	rpc.Use(zenrpc.Logger(log.New(os.Stderr, "", log.LstdFlags)))
 
 	http.Handle("/", rpc)

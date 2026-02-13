@@ -9,7 +9,10 @@ lint:
 	@golangci-lint run
 
 test:
-	@go test -v ./...
+	@go test -race -v ./...
+
+bench:
+	@go test -bench=. -benchmem -run=^$$ ./...
 
 mod:
 	@go mod tidy
