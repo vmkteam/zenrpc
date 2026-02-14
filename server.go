@@ -132,7 +132,7 @@ func (s *Server) SetLogger(printer Printer) {
 }
 
 // process processes JSON-RPC 2.0 message, invokes correct method for namespace and returns JSON-RPC 2.0 Response.
-func (s *Server) process(ctx context.Context, message json.RawMessage) interface{} {
+func (s *Server) process(ctx context.Context, message json.RawMessage) any {
 	// parsing batch requests
 	batch := IsArray(message)
 
@@ -145,7 +145,7 @@ func (s *Server) process(ctx context.Context, message json.RawMessage) interface
 
 		if req.ID == nil {
 			// notification — fire and forget
-			s.processRequest(ctx, req)
+			go s.processRequest(ctx, req)
 			return nil
 		}
 
