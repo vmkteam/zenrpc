@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -40,6 +41,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		b, err := json.Marshal(s.SMD())
 		s.printErr("json marshal", err)
 
+		w.Header().Set("Content-Length", strconv.Itoa(len(b)))
 		_, err = w.Write(b)
 		s.printErr("response write", err)
 		return
@@ -94,6 +96,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// write response
 	w.Header().Set("Content-Type", contentTypeJSON)
+	w.Header().Set("Content-Length", strconv.Itoa(len(resp)))
 	if _, err = w.Write(resp); err != nil {
 		s.printErr("response write", err)
 		s.httpError(w, http.StatusInternalServerError)
