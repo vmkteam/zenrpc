@@ -15,6 +15,8 @@ import (
 	"github.com/vmkteam/zenrpc/v2/testdata"
 
 	"github.com/gorilla/websocket"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestServer_ServeHTTPWithHeaders(t *testing.T) {
@@ -41,13 +43,8 @@ func TestServer_ServeHTTPWithHeaders(t *testing.T) {
 
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, c.h, bytes.NewBufferString(`{"jsonrpc": "2.0", "method": "arith.pi", "id": 2 }`))
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		if res.StatusCode != c.s {
-			t.Errorf("Input: %s\n got %d expected %d", c.h, res.StatusCode, c.s)
-		}
+		require.NoError(t, err)
+		assert.Equal(t, c.s, res.StatusCode, "Input: %s", c.h)
 		res.Body.Close()
 	}
 }
@@ -111,19 +108,13 @@ func TestServer_ServeHTTP(t *testing.T) {
 
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, "application/json", bytes.NewBufferString(c.in))
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
 		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
-		if string(resp) != c.out {
-			t.Errorf("Input: %s\n got %s expected %s", c.in, resp, c.out)
-		}
+		assert.Equal(t, c.out, string(resp), "Input: %s", c.in)
 	}
 }
 
@@ -164,19 +155,13 @@ func TestServer_ServeHTTPNotifications(t *testing.T) {
 
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, "application/json", bytes.NewBufferString(c.in))
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
 		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
-		if string(resp) != c.out {
-			t.Errorf("Input: %s\n got %s expected %s", c.in, resp, c.out)
-		}
+		assert.Equal(t, c.out, string(resp), "Input: %s", c.in)
 	}
 }
 
@@ -222,26 +207,19 @@ func TestServer_ServeHTTPBatch(t *testing.T) {
 
 	for _, c := range tc {
 		res, err := http.Post(ts.URL, "application/json", bytes.NewBufferString(c.in))
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
 		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
 		// checking if count of responses is correct
-		if cnt := strings.Count(string(resp), `"jsonrpc":"2.0"`); len(c.out) != cnt {
-			t.Errorf("Input: %s\n got %d in batch expected %d", c.in, cnt, len(c.out))
-		}
+		cnt := strings.Count(string(resp), `"jsonrpc":"2.0"`)
+		assert.Equal(t, len(c.out), cnt, "Input: %s\n batch count mismatch", c.in)
 
 		// checking every response variant to be in response
 		for _, check := range c.out {
-			if !strings.Contains(string(resp), check) {
-				t.Errorf("Input: %s\n not found %s in batch %s", c.in, check, resp)
-			}
+			assert.Contains(t, string(resp), check, "Input: %s", c.in)
 		}
 	}
 }
@@ -296,19 +274,13 @@ func TestServer_ServeHTTPWithErrors(t *testing.T) {
 
 	for _, c := range tc {
 		res, err := http.Post(c.url, "application/json", bytes.NewBufferString(c.in))
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
 		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
-		if string(resp) != c.out {
-			t.Errorf("Input: %s\n got %s expected %s", c.in, resp, c.out)
-		}
+		assert.Equal(t, c.out, string(resp), "Input: %s", c.in)
 	}
 }
 
@@ -361,19 +333,13 @@ func TestServer_Extensions(t *testing.T) {
 
 	for _, c := range tc {
 		res, err := http.Post(c.url, "application/json", bytes.NewBufferString(c.in))
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
 		resp, err := io.ReadAll(res.Body)
 		res.Body.Close()
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 
-		if string(resp) != c.out {
-			t.Errorf("Input: %s\n got %s expected %s", c.in, resp, c.out)
-		}
+		assert.Equal(t, c.out, string(resp), "Input: %s", c.in)
 	}
 }
 
@@ -381,14 +347,13 @@ func TestServer_ServeWS(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(testRPC.ServeWS))
 	defer ts.Close()
 
-	u, _ := url.Parse(ts.URL)
+	u, err := url.Parse(ts.URL)
+	require.NoError(t, err)
 	u.Scheme = "ws"
 
 	//nolint:bodyclose
 	ws, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err)
 	defer ws.Close()
 
 	var tc = []struct {
@@ -421,24 +386,16 @@ func TestServer_ServeWS(t *testing.T) {
 	}
 
 	for _, c := range tc {
-		if err := ws.WriteMessage(websocket.TextMessage, []byte(c.in)); err != nil {
-			t.Fatal(err)
-			return
-		}
+		err = ws.WriteMessage(websocket.TextMessage, []byte(c.in))
+		require.NoError(t, err)
 
-		_, resp, err := ws.ReadMessage()
-		if err != nil {
-			t.Fatal(err)
-			return
-		}
+		var resp []byte
+		_, resp, err = ws.ReadMessage()
+		require.NoError(t, err)
 
-		if string(resp) != c.out {
-			t.Errorf("Input: %s\n got %s expected %s", c.in, resp, c.out)
-		}
+		assert.Equal(t, c.out, string(resp), "Input: %s", c.in)
 	}
 
-	if err := ws.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "")); err != nil {
-		t.Fatal(err)
-		return
-	}
+	err = ws.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
+	require.NoError(t, err)
 }
