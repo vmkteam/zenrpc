@@ -298,11 +298,11 @@ func (pi *PackageInfo) parseMethods(f *ast.File, packagePath string) error {
 
 func (pi *PackageInfo) String() string {
 	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("Generated services for package %s:\n", pi.PackageName))
+	fmt.Fprintf(&sb, "Generated services for package %s:\n", pi.PackageName)
 	for _, s := range pi.Services {
-		sb.WriteString(fmt.Sprintf("- %s\n", s.Name))
+		fmt.Fprintf(&sb, "- %s\n", s.Name)
 		for _, m := range s.Methods {
-			sb.WriteString(fmt.Sprintf("  • %s", m.Name))
+			fmt.Fprintf(&sb, "  • %s", m.Name)
 
 			// args
 			sb.WriteString("(")
@@ -310,7 +310,7 @@ func (pi *PackageInfo) String() string {
 				if i != 0 {
 					sb.WriteString(", ")
 				}
-				sb.WriteString(fmt.Sprintf("%s %s", a.Name, a.Type))
+				fmt.Fprintf(&sb, "%s %s", a.Name, a.Type)
 			}
 			sb.WriteString(") ")
 
@@ -335,7 +335,7 @@ func (pi *PackageInfo) String() string {
 				if a.Name == "" {
 					sb.WriteString(a.Type)
 				} else {
-					sb.WriteString(fmt.Sprintf("%s %s", a.Name, a.Type))
+					fmt.Fprintf(&sb, "%s %s", a.Name, a.Type)
 				}
 			}
 			sb.WriteString(")\n")
