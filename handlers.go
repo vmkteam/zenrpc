@@ -149,16 +149,18 @@ func (s *Server) ServeWS(w http.ResponseWriter, r *http.Request) {
 // This provides a web-based interface for exploring and testing the JSON-RPC API.
 func SMDBoxHandler(w http.ResponseWriter, _ *http.Request) {
 	_, _ = w.Write([]byte(`
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SMD Box</title>
-    <link rel="stylesheet" href="https://bootswatch.com/3/paper/bootstrap.min.css">
-	<link href="https://cdn.jsdelivr.net/gh/vmkteam/smdbox@latest/dist/app.css" rel="stylesheet"></head>
-<body>
-<div id="json-rpc-root"></div>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vmkteam/smdbox@latest/dist/app.js"></script></body>
+    <link rel="stylesheet" href="https://vmkteam.github.io/smdbox/app.css" />
+  </head>
+  <body>
+    <div id="json-rpc-root"></div>
+    <script src="https://vmkteam.github.io/smdbox/app.js"></script>
+  </body>
 </html>
 	`))
 }
