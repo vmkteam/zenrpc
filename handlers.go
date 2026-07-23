@@ -147,7 +147,18 @@ func (s *Server) ServeWS(w http.ResponseWriter, r *http.Request) {
 
 // SMDBoxHandler serves the SMDBox web application interface.
 // This provides a web-based interface for exploring and testing the JSON-RPC API.
-func SMDBoxHandler(w http.ResponseWriter, _ *http.Request) {
+func SMDBoxHandler(w http.ResponseWriter, r *http.Request) {
+	smdBoxHandler(w, r, false)
+}
+
+// SMDBoxHandlerWithSRI serves the SMDBox web application interface.
+// This provides a web-based interface for exploring and testing the JSON-RPC API.
+// Adds the Subresource Integrity hashes to the external scripts.
+func SMDBoxHandlerWithSRI(w http.ResponseWriter, r *http.Request) {
+	smdBoxHandler(w, r, true)
+}
+
+func smdBoxHandler(w http.ResponseWriter, _ *http.Request, withSRI bool) {
 	_, _ = w.Write([]byte(`
 <!doctype html>
 <html lang="en">
@@ -155,12 +166,55 @@ func SMDBoxHandler(w http.ResponseWriter, _ *http.Request) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SMD Box</title>
-    <link rel="stylesheet" href="https://vmkteam.github.io/smdbox/app.css" />
+    ` + assets[assetNameBootstrap].render(withSRI) + `
   </head>
   <body>
     <div id="json-rpc-root"></div>
-    <script src="https://vmkteam.github.io/smdbox/app.js"></script>
+    ` + assets[assetNameApp].render(withSRI) + `
   </body>
 </html>
 	`))
+}
+
+const (
+	assetTypeStylesheet = "stylesheet"
+	assetTypeScript     = "script"
+
+	assetNameBootstrap = "bootstrap.css"
+	assetNameApp       = "app.js"
+)
+
+type asset struct {
+	Type    string
+	URL     string
+	SRIHash string
+}
+
+func (a asset) render(withSRI bool) string {
+	sri := ""
+	if withSRI {
+		sri = ` integrity="sha384-94dHw1lOqJp6Y8oY9zkpSNF/+gVEM+jz+FP26CuoTKkRv0lYzXBfp+D5QZOdKpZf" crossorigin="anonymous"`
+	}
+
+	switch a.Type {
+	case assetTypeStylesheet:
+		return `<link rel="` + a.Type + `" href="` + a.URL + `"` + sri + `>`
+	case assetTypeScript:
+		return `<script src="` + a.URL + `"` + sri + `></script>`
+	}
+	return ""
+}
+
+var assets = map[string]asset{
+	assetNameBootstrap: {
+		Type:    assetTypeStylesheet,
+		URL:     "https://bootswatch.com/3/paper/bootstrap.min.css",
+		SRIHash: "sha384-94dHw1lOqJp6Y8oY9zkpSNF/+gVEM+jz+FP26CuoTKkRv0lYzXBfp+D5QZOdKpZf",
+	},
+
+	assetNameApp: {
+		Type:    assetTypeScript,
+		URL:     "https://vmkteam.github.io/smdbox/app.js",
+		SRIHash: "sha384-aNy3gYTKkyWIALVYbenYzuM8aCYnqZbF5Hb1oUhSlurCEh4zVn9Qwpwq4qcDQBBJ",
+	},
 }

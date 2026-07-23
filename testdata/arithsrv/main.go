@@ -6,14 +6,15 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-
 	"github.com/vmkteam/zenrpc/v2"
 	"github.com/vmkteam/zenrpc/v2/testdata"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
 	addr := flag.String("addr", "localhost:9999", "listen address")
+	withSRI := flag.Bool("sri", false, "add SRI hashes to the external scripts")
 	flag.Parse()
 
 	const phonebook = "phonebook"
@@ -36,7 +37,14 @@ func main() {
 	http.Handle("/", rpc)
 	http.HandleFunc("/ws", rpc.ServeWS)
 	http.Handle("/metrics", promhttp.Handler())
-	http.HandleFunc("/doc", zenrpc.SMDBoxHandler)
+
+	var docHandler http.HandlerFunc
+	if *withSRI {
+		docHandler = zenrpc.SMDBoxHandlerWithSRI
+	} else {
+		docHandler = zenrpc.SMDBoxHandler
+	}
+	http.HandleFunc("/doc", docHandler)
 
 	log.Printf("starting arithsrv on %s", *addr)
 	log.Fatal(http.ListenAndServe(*addr, nil))
